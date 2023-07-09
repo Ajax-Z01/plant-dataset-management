@@ -6,7 +6,7 @@
             <span class="ms-2 font-weight-bold" style="color: #285430">Plant Dataset Management</span>
         </a>
         <div class="justify-content-end">
-            <button class="navbar-toggler font-weight-bold px-3 py-2 rounded shadow-none" style="color: #263A29" type="button" data-bs-toggle="collapse" data-bs-target="#dropdown03" aria-controls="dropdown03" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler font-weight-bold px-3 py-2 rounded shadow-none" style="color: #263A29" type="button" data-bs-toggle="collapse" data-bs-target="#dropdown03" aria-controls="dropdown03" aria-expanded="false">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>

@@ -41,8 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
-	Route::get('/edit-profile', [UpdateProfileController::class, 'edit'])->name('profile.edit');
-	Route::post('/edit-profile', [UpdateProfileController::class, 'update'])->name('profile.update');
+	// Route::get('/edit-profile', [UpdateProfileController::class, 'edit'])->name('profile.edit');
+	// Route::post('/edit-profile', [UpdateProfileController::class, 'update'])->name('profile.update');
 	
     Route::get('/login', function () {
 		return view('dashboard');

@@ -4,7 +4,7 @@
 @section('content')
   <div class="main-content position-relative my-5 mx-6">
     <div class="container-fluid">
-      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('{{asset('assets/img/curved-images/curved0.jpg')}}'); background-position-y: 50%;">
+      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('{{asset('assets/img/curved-images/green-3.jpg')}}'); background-position-y: 50%;">
         <span class="mask bg-gradient-primary opacity-6"></span>
       </div>
       <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
@@ -89,50 +89,116 @@
               </ul>
             </div>
           </div> --}}
+          <div class="col-auto my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary mb-0 rounded-pill" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <i class="fas fa-user-edit text-lg me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+              <span class="font-weight-bold">Edit Profile</span>
+            </button>
+
+          </div>
         </div>
       </div>
     </div>
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-5">
       <div class="row">
         <div class="col-12 col-xl-12">
           <div class="card h-100">
             <div class="card-header pb-0 p-3">
               <div class="row">
                 <div class="col-md-8 d-flex align-items-center">
-                  <h6 class="mb-1">Profile Information</h6>
+                  <h5 class="mb-1">Profile Information</h5>
                 </div>
                 <div class="col-md-4 text-end">
-                  <a href="javascript:;">
+                  {{-- <a class="modal-dialog modal-dialog-centered modal-dialog-scrollable" href="#" role="button" data-bs-toggle="modal" aria-expanded="false">
                     <i class="fas fa-user-edit text-lg" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                     <span class="font-weight-bold">Edit Profile</span>
-                  </a>
+                  </a> --}}
+                  
                 </div>
               </div>
             </div>
             <div class="card-body p-3">
-              <p class="text-sm mx-3 mb-4">
+              <p class="text-lg mx-3 mb-4">
                 Hi, I’m {{ auth()->user()->name }}, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
               </p>
               <ul class="list-group m-3">
-                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; {{ auth()->user()->name }}</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ auth()->user()->email }}</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
+                <li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">
+                  <span><i class="fa-solid fa-user pe-2" style="color: #344767 ;"></i></span>
+                  Full Name:</strong> &nbsp; {{ auth()->user()->name }}
+                </li>
+                <li class="list-group-item border-0 ps-0 text-lg"><strong class="text-dark">
+                  <span><i class="fa-solid fa-mobile-screen-button pe-2" style="color: #344767 ;"></i></span>
+                  Mobile:</strong> &nbsp; (44) 123 1234 123
+                </li>
+                <li class="list-group-item border-0 ps-0 text-lg"><strong class="text-dark">
+                  <span><i class="fa-solid fa-envelope pe-2" style="color: #344767 ;"></i></span>
+                  Email:</strong> &nbsp; {{ auth()->user()->email }}
+                </li>
+                <li class="list-group-item border-0 ps-0 text-lg"><strong class="text-dark">
+                  <span><i class="fa-solid fa-location-dot pe-2" style="color: #344767 ;"></i></span>
+                  Location:</strong> &nbsp; USA
+                </li>
                 <li class="list-group-item border-0 ps-0 pb-0">
-                  <strong class="text-dark text-sm">Social:</strong> &nbsp;
+                  <strong class="text-dark text-lg">Social:</strong> &nbsp;
                   <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-facebook fa-lg"></i>
+                    <i class="fab fa-facebook fa-xl"></i>
                   </a>
                   <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-twitter fa-lg"></i>
+                    <i class="fab fa-twitter fa-xl"></i>
                   </a>
                   <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-instagram fa-lg"></i>
+                    <i class="fab fa-instagram fa-xl"></i>
                   </a>
                 </li>
               </ul>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Profile</h1>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post">
+            @csrf
+            <div class="mb-3">
+              <i class="fa-solid fa-user" style="color: #000000;"></i>
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Full Name">
+            </div>
+            <div class="mb-3">
+              <i class="fa-solid fa-mobile-screen-button" style="color: #000000;"></i>
+              <label for="phone" class="form-label">Mobile</label>
+              <input type="tel" class="form-control" id="phone" placeholder="Mobile" pattern="[(+62)]-[0-9]{3}-[0-9]{4}-[0-9]{4}">
+            </div>
+            <div class="mb-3">
+              <i class="fa-solid fa-envelope" style="color: #000000;"></i>
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="mb-3">
+              <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
+              <label for="location" class="form-label">Location</label>
+              <input type="text" class="form-control" id="location" placeholder="Location">
+            </div>
+            <div class="mb-3">
+              <i class="fa-solid fa-quote-left" style="color: #000000;"></i>
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary py-2 rounded-pill" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary py-2 rounded-pill">Submit</button>
         </div>
       </div>
     </div>
