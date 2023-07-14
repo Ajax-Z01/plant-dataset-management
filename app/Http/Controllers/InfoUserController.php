@@ -12,7 +12,7 @@ class InfoUserController extends Controller
 {
     public function create()
     {
-        return view('laravel-examples/user-profile');
+        return view('profile');
     }
 
     public function store(Request $request)
@@ -21,10 +21,11 @@ class InfoUserController extends Controller
         $attributes = request()->validate([
             'name' => ['required', 'max:50'],
             'email' => ['required', 'email', 'max:50', Rule::unique('users')->ignore(Auth::user()->id)],
-            'phone'     => ['max:50'],
+            'phone'     => ['required', 'max:11'],
             'location' => ['max:70'],
             'about_me'    => ['max:150'],
         ]);
+        
         if($request->get('email') != Auth::user()->email)
         {
             if(env('IS_DEMO') && Auth::user()->id == 1)
@@ -40,7 +41,6 @@ class InfoUserController extends Controller
             ]);
         }
         
-        
         User::where('id',Auth::user()->id)
         ->update([
             'name'    => $attributes['name'],
@@ -50,7 +50,27 @@ class InfoUserController extends Controller
             'about_me'    => $attributes["about_me"],
         ]);
 
+        return redirect('/profile');
+    }
 
-        return redirect('/user-profile');
+    public function update(Request $request, User $user)
+    {
+        $this->validate($request, [
+            'name' => ['required', 'max:50'],
+            'email' => ['required', 'email', 'max:50', Rule::unique('users')->ignore(Auth::user()->id)],
+            'phone'     => ['required', 'max:11'],
+            'location' => ['max:70'],
+            'about_me'    => ['max:150'],
+         ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'location' => $request->location,
+            'about_me' => $request->about_me,
+        ]);
+
+        return redirect('/profile');
     }
 }

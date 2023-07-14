@@ -3,7 +3,7 @@
     <div class="container-fluid mx-2">
         <a class="navbar-brand text-wrap" href="{{ route('dashboard') }}">
             <img src="{{asset('assets/img/logos/dataset-leaf.png')}}" class="navbar-brand-img" style="width:20px; height:20px" alt="...">
-            <span class="ms-2 font-weight-bold" style="color: #285430">Plant Dataset Management</span>
+            <span class="ms-2 font-weight-bold" style="color: #285430">Plants Dataset</span>
         </a>
         <div class="justify-content-end">
             <button class="navbar-toggler font-weight-bold px-3 py-2 rounded shadow-none" style="color: #263A29" type="button" data-bs-toggle="collapse" data-bs-target="#dropdown03" aria-controls="dropdown03" aria-expanded="false">
@@ -16,7 +16,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" id="dropdownMenuButton" role="button" style="color: #285430" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell cursor-pointer d-sm-none d-lg-block" style="font-size: 20px"></i>
+                        <i class="fa fa-bell cursor-pointer d-none d-lg-block" style="font-size: 20px"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                         <li class="mb-2">
@@ -62,7 +62,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle font-weight-bold px-3 py-2 rounded shadow-none" style="color: #285430" href="#" id="dropdown03link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- <img src="{{ auth()->user()->avatar }}" alt="profile_image" class="navbar-brand-img mx-2 mt-2" style="width: 30px; height: 30px"> --}}
-                        <span class="d-sm-inline d-none">{{ auth()->user()->name }}</span>
+                        <span class="d-sm-inline">{{ auth()->user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu overflow-auto mt-0" aria-labelledby="dropdown03link">
                         <li><a class="dropdown-item" style="color: #285430" href="{{ url('profile') }}">Profile</a></li>

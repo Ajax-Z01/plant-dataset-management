@@ -95,7 +95,6 @@
               <i class="fas fa-user-edit text-lg me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
               <span class="font-weight-bold">Edit Profile</span>
             </button>
-
           </div>
         </div>
       </div>
@@ -104,24 +103,22 @@
       <div class="row">
         <div class="col-12 col-xl-12">
           <div class="card h-100">
-            <div class="card-header pb-0 p-3">
-              <div class="row">
+            <div class="card-header mx-2 pb-0">
+              <h5 class="mb-1">Profile Information</h5>
+              {{-- <div class="row">
                 <div class="col-md-8 d-flex align-items-center">
-                  <h5 class="mb-1">Profile Information</h5>
                 </div>
                 <div class="col-md-4 text-end">
-                  {{-- <a class="modal-dialog modal-dialog-centered modal-dialog-scrollable" href="#" role="button" data-bs-toggle="modal" aria-expanded="false">
+                  <a class="modal-dialog modal-dialog-centered modal-dialog-scrollable" href="#" role="button" data-bs-toggle="modal" aria-expanded="false">
                     <i class="fas fa-user-edit text-lg" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                     <span class="font-weight-bold">Edit Profile</span>
-                  </a> --}}
+                  </a>
                   
                 </div>
-              </div>
+              </div> --}}
             </div>
-            <div class="card-body p-3">
-              <p class="text-lg mx-3 mb-4">
-                Hi, I’m {{ auth()->user()->name }}, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
-              </p>
+            <div class="card-body p-3 pt-0">
+              <p class="text-lg m-3">{{ auth()->user()->about_me }}</p>
               <ul class="list-group m-3">
                 <li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">
                   <span><i class="fa-solid fa-user pe-2" style="color: #344767 ;"></i></span>
@@ -129,7 +126,7 @@
                 </li>
                 <li class="list-group-item border-0 ps-0 text-lg"><strong class="text-dark">
                   <span><i class="fa-solid fa-mobile-screen-button pe-2" style="color: #344767 ;"></i></span>
-                  Mobile:</strong> &nbsp; (44) 123 1234 123
+                  Mobile:</strong> &nbsp; {{ auth()->user()->phone }}
                 </li>
                 <li class="list-group-item border-0 ps-0 text-lg"><strong class="text-dark">
                   <span><i class="fa-solid fa-envelope pe-2" style="color: #344767 ;"></i></span>
@@ -137,7 +134,7 @@
                 </li>
                 <li class="list-group-item border-0 ps-0 text-lg"><strong class="text-dark">
                   <span><i class="fa-solid fa-location-dot pe-2" style="color: #344767 ;"></i></span>
-                  Location:</strong> &nbsp; USA
+                  Location:</strong> &nbsp; {{ auth()->user()->location }}
                 </li>
                 <li class="list-group-item border-0 ps-0 pb-0">
                   <strong class="text-dark text-lg">Social:</strong> &nbsp;
@@ -161,45 +158,46 @@
 
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Profile</h1>
         </div>
-        <div class="modal-body">
-          <form action="" method="post">
-            @csrf
+        <form action="{{ route('edit.profile') }}" method="post" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
             <div class="mb-3">
               <i class="fa-solid fa-user" style="color: #000000;"></i>
               <label for="name" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Full Name">
+              <input name="name" type="text" class="form-control" id="name" value="{{ auth()->user()->name }}" placeholder="Full Name">
             </div>
             <div class="mb-3">
               <i class="fa-solid fa-mobile-screen-button" style="color: #000000;"></i>
               <label for="phone" class="form-label">Mobile</label>
-              <input type="tel" class="form-control" id="phone" placeholder="Mobile" pattern="[(+62)]-[0-9]{3}-[0-9]{4}-[0-9]{4}">
+              <input name="phone" type="tel" class="form-control" id="phone" value="{{ auth()->user()->phone }}" placeholder="Mobile">
             </div>
             <div class="mb-3">
               <i class="fa-solid fa-envelope" style="color: #000000;"></i>
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Email">
+              <input name="email" type="email" class="form-control" id="email" value="{{ auth()->user()->email }}" placeholder="Email">
             </div>
             <div class="mb-3">
               <i class="fa-solid fa-location-dot" style="color: #000000;"></i>
               <label for="location" class="form-label">Location</label>
-              <input type="text" class="form-control" id="location" placeholder="Location">
+              <input name="loaction" type="text" class="form-control" id="location" value="{{ auth()->user()->location }}" placeholder="Location">
             </div>
             <div class="mb-3">
               <i class="fa-solid fa-quote-left" style="color: #000000;"></i>
-              <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" id="description" rows="3"></textarea>
+              <label for="description" class="form-label">About Me</label>
+              <textarea class="form-control" id="description" rows="3">{{ auth()->user()->about_me }}</textarea>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer justify-content-center">
-          <button type="button" class="btn btn-secondary py-2 rounded-pill" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary py-2 rounded-pill">Submit</button>
-        </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary py-2 rounded-pill" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary py-2 rounded-pill">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

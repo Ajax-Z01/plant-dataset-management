@@ -7,14 +7,12 @@ use Illuminate\Http\Request;
 
 class NewProjectFormController extends Controller
 {
-    // Create Contact Form
-    public function createForm() {
+    public function create() {
         return view('create');
     }
 
-    // Store Contact Form data
-    public function NewProjectForm(Request $request) {
-        // Form validation
+    public function store(Request $request) {
+        
         $this->validate($request, [
             'name' => 'required',
             'label' => 'required',
@@ -22,7 +20,7 @@ class NewProjectFormController extends Controller
             'url'=>'required',
             'accesskey' => 'required',
             'secretaccesskey' => 'required'
-         ]);
+        ]);
         //  Store data in database
         Project::create([
             'name' => $request->name,
@@ -32,7 +30,7 @@ class NewProjectFormController extends Controller
             'accesskey' => $request->accesskey,
             'secretaccesskey' => $request->secretaccesskey,
         ]);
-        // 
+        
         return redirect('/dashboard');
     }
 }

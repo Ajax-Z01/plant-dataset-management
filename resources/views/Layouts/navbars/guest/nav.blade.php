@@ -3,7 +3,7 @@
   <div class="container-fluid justify-content-center">
     <img src="{{asset('assets/img/logos/dataset-leaf.png')}}" alt="..." style="width: 20px; margin-right: 10px;">
     <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-successs">
-      Plant Dataset Management
+      Plants Dataset
     </a>
   </div>
 </nav>

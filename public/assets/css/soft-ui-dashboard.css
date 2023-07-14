@@ -6043,7 +6043,9 @@ fieldset:disabled .btn {
     opacity: 1;
 }
 .carousel-caption {
-    bottom: 1.25rem;
+    /* modified */
+    bottom: 200px;
+    /* modified */
     color: #fff;
     left: 15%;
     padding-bottom: 1.25rem;

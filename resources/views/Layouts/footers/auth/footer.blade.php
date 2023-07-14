@@ -1,4 +1,4 @@
-<footer class="footer py-4 mt-6 w-100 position-relative" style="background-color: #1C0A00; border-top-left-radius: 135px">
+<footer class="footer py-5 mt-6 w-100 position-relative" style="background-color: #1C0A00; border-top-left-radius: 135px">
     <div class="container">
       <div class="row mt-2">
         <div class="mb-3 mx-auto text-center">

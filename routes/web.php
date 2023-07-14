@@ -29,9 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('dashboard');
 	})->name('dashboard');
 
-	Route::get('profile', function () {
-		return view('profile');
-	})->name('profile');
+	// Route::get('profile', function () {
+	// 	return view('profile');
+	// })->name('profile');
 
 	Route::get('user-management', function () {
 		return view('laravel-examples/user-management');
@@ -39,8 +39,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/logout', [SessionsController::class, 'destroy']);
 
-	Route::get('/user-profile', [InfoUserController::class, 'create']);
-	Route::post('/user-profile', [InfoUserController::class, 'store']);
+	// Route::resource('/profile', [InfoUserController::class]);
+	Route::get('/profile', [InfoUserController::class, 'create'])->name('create.profile');
+	Route::post('/profile', [InfoUserController::class, 'store']);
+	Route::post('/profile', [InfoUserController::class, 'update'])->name('edit.profile');
 	// Route::get('/edit-profile', [UpdateProfileController::class, 'edit'])->name('profile.edit');
 	// Route::post('/edit-profile', [UpdateProfileController::class, 'update'])->name('profile.update');
 	
@@ -48,8 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('dashboard');
 	})->name('sign-up');
 
-	Route::get('/create-project', [NewProjectFormController::class, 'createForm'])->name('create.form');
-	Route::post('/create-project', [NewProjectFormController::class, 'NewProjectForm'])->name('create.store');
+	Route::get('/create-project', [NewProjectFormController::class, 'create'])->name('create.form');
+	Route::post('/create-project', [NewProjectFormController::class, 'store'])->name('create.store');
 
 	Route::get('/show-post', [PostController::class, 'index']);
 	Route::post('/create-post', [PostController::class, 'store']);
