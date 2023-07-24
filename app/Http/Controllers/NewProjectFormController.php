@@ -14,16 +14,16 @@ class NewProjectFormController extends Controller
     public function store(Request $request) {
         
         $this->validate($request, [
-            'name' => 'required',
+            'title' => 'required',
             'label' => 'required',
             'collaborator' => 'required',
             'url'=>'required',
             'accesskey' => 'required',
-            'secretaccesskey' => 'required'
+            'secretaccesskey' => 'required',
         ]);
         //  Store data in database
         Project::create([
-            'name' => $request->name,
+            'title' => $request->title,
             'label' => $request->label,
             'collaborator' => $request->collaborator,
             'url' => $request->url,

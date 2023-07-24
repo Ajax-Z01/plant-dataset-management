@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class authController extends Controller
@@ -22,7 +23,7 @@ class authController extends Controller
             'name' => $googleUser->name,
             'email' => $googleUser->email,
             'avatar' => $googleUser->avatar,
-            // 'password' => $googleUser->bcrypt('12345678'),
+            'password' => encrypt('admin@123')
         ]);
  
     Auth::login($user);

@@ -59,15 +59,6 @@
                       <p class="text-danger text-xs mt-2">{{ $message }}</p>
                     @enderror
                   </div>
-                  {{-- <div class="form-check form-check-info text-left">
-                    <input class="form-check-input" type="checkbox" name="agreement" id="flexCheckDefault" checked>
-                    <label class="form-check-label" for="flexCheckDefault">
-                      I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                    </label>
-                    @error('agreement')
-                      <p class="text-danger text-xs mt-2">First, agree to the Terms and Conditions, then try register again.</p>
-                    @enderror
-                  </div> --}}
                   <div class="text-center">
                     <button type="submit" class="btn bg-gradient-success w-100 my-4 mb-2">Sign up</button>
                   </div>

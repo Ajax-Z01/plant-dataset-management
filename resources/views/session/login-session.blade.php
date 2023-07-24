@@ -45,7 +45,7 @@
                 </small> --}}
                   <p class="mb-3 text-sm mx-auto">
                     Don't have an account?
-                    <a href="{{ url('register') }}" class="text-success text-gradient font-weight-bold">Sign up</a>
+                    <a href="{{ route('create.register') }}" class="text-success text-gradient font-weight-bold">Sign up</a>
                   </p>
                   <p class="text-sm font-weight-bold">
                     OR

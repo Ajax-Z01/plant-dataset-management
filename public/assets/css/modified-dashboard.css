@@ -59,10 +59,18 @@
     display: block !important;
 }
 
+.carousel-caption {
+    bottom: 140px !important;
+}
+
+.carousel-text-label {
+    color: #263A29;
+    font-family: Poppins, 'sans serif';
+}
+
 .carousel-text-label p {
     text-align: center;
     font-size: 35px;
-    font-family: Poppins, 'sans serif';
     font-weight: 400px;
 }
 
@@ -103,7 +111,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 85vh;
+    height: 65vh;
 }
 
 @media (max-width: 992px) {

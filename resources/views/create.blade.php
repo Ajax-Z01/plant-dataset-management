@@ -13,7 +13,7 @@
                         </div>
                         <div class="form-group">
                             <label for="name" class="form-label">Project Name</label>
-                            <input name="name" type="text" class="form-control shadow py-2 mb-4 bg-body rounded" id="name" placeholder="Enter your project name" required>
+                            <input name="title" type="text" class="form-control shadow py-2 mb-4 bg-body rounded" id="name" placeholder="Enter your project name" required>
                         </div>
                         <div class="form-group">
                             <label for="label" class="form-label">Label</label>

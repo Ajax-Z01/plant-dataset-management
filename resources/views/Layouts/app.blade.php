@@ -37,7 +37,6 @@
 
   @yield('guest')
 
-
   @if(session()->has('success'))
   <div x-data="{ show: true}"
       x-init="setTimeout(() => show = false, 4000)"
@@ -58,9 +57,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" integrity="sha512-9UR1ynHntZdqHnwXKTaOm1s6V9fExqejKvg5XMawEMToW4sSw+3jtLrYfZPijvnwnnE8Uol1O9BcAskoxgec+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- International Tel Input -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.8/js/intlTelInput.min.js"></script>
-  <!-- AOS - Animate On Scroll -->
-  {{-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> --}}
-
+  
   @stack('dashboard')
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
@@ -81,6 +78,8 @@
   <script>
     AOS.init();
   </script>
+  <!-- Google Drive Oauth2 -->
+  <script src="{{asset('assets/js/script.js')}}"></script>
 </body>
 <script>
   const phoneInputField = document.querySelector("#phone");

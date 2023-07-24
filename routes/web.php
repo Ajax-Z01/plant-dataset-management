@@ -9,6 +9,8 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\ViewProjectController;
+use App\Http\Controllers\UpdateProfileController;
 use App\Http\Controllers\NewProjectFormController;
 
 /*
@@ -24,14 +26,7 @@ use App\Http\Controllers\NewProjectFormController;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/dashboard', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
-
-	// Route::get('profile', function () {
-	// 	return view('profile');
-	// })->name('profile');
+    Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
 
 	Route::get('user-management', function () {
 		return view('laravel-examples/user-management');
@@ -39,7 +34,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/logout', [SessionsController::class, 'destroy']);
 
-	// Route::resource('/profile', [InfoUserController::class]);
 	Route::get('/profile', [InfoUserController::class, 'create'])->name('create.profile');
 	Route::post('/profile', [InfoUserController::class, 'store']);
 	Route::post('/profile', [InfoUserController::class, 'update'])->name('edit.profile');
@@ -52,24 +46,22 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/create-project', [NewProjectFormController::class, 'create'])->name('create.form');
 	Route::post('/create-project', [NewProjectFormController::class, 'store'])->name('create.store');
+	
+	Route::get('/view-project', [ViewProjectController::class, 'index']);
 
 	Route::get('/show-post', [PostController::class, 'index']);
 	Route::post('/create-post', [PostController::class, 'store']);
+
 });
 
 Route::get('/auth/redirect', [authController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/callback', [authController::class, 'callback'])->name('google.callback');
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/register', [RegisterController::class, 'create']);
+    Route::get('/register', [RegisterController::class, 'create'])->name('create.register');
     Route::post('/register', [RegisterController::class, 'store']);
     Route::get('/login', [SessionsController::class, 'create']);
     Route::post('/session', [SessionsController::class, 'store']);
-	// Route::get('/login/forgot-password', [ResetController::class, 'create']);
-	// Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
-	// Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
-	// Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
-
 });
 
 Route::get('/login', function () {
