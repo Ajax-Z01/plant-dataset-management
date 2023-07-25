@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+use Google\Service\CloudSearch\Id;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -11,36 +13,33 @@ use function GuzzleHttp\Promise\all;
 
 class ViewProjectController extends Controller
 {
-    public function index(Request $request) {
+    public function index($id) {
         
-        // local
-        // $files = Storage::allFiles('public/datasets');
-        // $countFiles = 0;
+        $project = Project::find($id);
+        // dd($project->accesskey);
 
-        // if ($files !== false) {
-        //     $countFiles = count($files);
-        // }
+        $s3storage = Storage::build([
+            'driver' => 's3',
+            'key' => $project->access_key,
+            'secret' => $project->secret_access_key,
+            'endpoint' => $project->url_endpoint,
+            'region' => 'Jogja',
+            'bucket' => 'nabell',
+        ]);
+        // $s3storage->allFiles();
 
-        // S3
-        // $path = $request->file('filename')->store('images');
-        $files = Storage::putFile('images', $request->file('filename'));
-        // $files = Storage::putFile('filename', $path);
-        $url = Storage::url($files);
-        Storage::setVisibility($files, 'public');
+        // dd($s3storage->allFiles());
+        // $files = Storage::allFiles($s3storage);
 
         $projects = DB::table('projects')->get();
         $labels = DB::table('projects')->get();
-        $collaborators = DB::table('projects')->get();
 
         // dd($files);
         return view('view-project', [
-            'files' =>  $files,
+            's3storage' =>  $s3storage,
             'projects' => $projects,
             'labels' => $labels,
-            'collaborators' => $collaborators,
-            'url' => $url,
-            // 'countFiles' => $countFiles,
+            // 'files' => $files,
         ]);
-
     }
 }

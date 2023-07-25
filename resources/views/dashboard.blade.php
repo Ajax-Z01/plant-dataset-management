@@ -99,7 +99,7 @@
                       5 labels
                     </p>
                     <div class="d-flex align-items-center justify-content-center">
-                      <a href="{{ url('view-project') }}" class="btn bg-gradient-success btn-sm my-2">View Project</a>
+                      <a href="{{ url('view-project/' . $project->id) }}" class="btn bg-gradient-success btn-sm my-2">View Project</a>
                     </div>
                   </div>
                 </div>

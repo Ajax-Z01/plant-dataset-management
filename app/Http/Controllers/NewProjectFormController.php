@@ -16,19 +16,17 @@ class NewProjectFormController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'label' => 'required',
-            'collaborator' => 'required',
-            'url'=>'required',
-            'accesskey' => 'required',
-            'secretaccesskey' => 'required',
+            'url_endpoint'=>'required',
+            'access_key' => 'required',
+            'secret_access_key' => 'required',
         ]);
-        //  Store data in database
+        
         Project::create([
             'title' => $request->title,
             'label' => $request->label,
-            'collaborator' => $request->collaborator,
-            'url' => $request->url,
-            'accesskey' => $request->accesskey,
-            'secretaccesskey' => $request->secretaccesskey,
+            'url_endpoint' => $request->url_endpoint,
+            'access_key' => $request->access_key,
+            'secret_access_key' => $request->secret_access_key,
         ]);
         
         return redirect('/dashboard');

@@ -19,22 +19,6 @@
                 Label :</strong> &nbsp; {{ $project->label }}
               </li>
               @endforeach
-
-              @foreach ($collaborators as $collaborator)
-              <li class="list-group-item border-0 ps-0 text-lg"><strong style="color: #285430">
-                <span><i class="fa-solid fa-user pe-2" style="color: #285430 ;"></i></span>
-                Collaborator :</strong> &nbsp; {{ $project->collaborator }}
-              </li>
-              @endforeach
-              
-              {{-- @foreach ($countFiles as $countFile) --}}
-              <li class="list-group-item border-0 ps-0 text-lg"><strong style="color: #285430">
-                <span><i class="fab fa-envira pe-2" style="color: #285430 ;"></i></span>
-                Items :</strong> &nbsp; 
-                  {{-- {{ str_replace('public/datasets', 'storage/datasets', $countFile) }} --}}
-              </li>
-              {{-- @endforeach --}}
-              
             </ul>
           </div>
         </div>
@@ -43,10 +27,11 @@
   </div>
 
   <div class="row row-cols-7 g-2 g-lg-3 px-4">
-    @foreach ($files as $file)
+    @foreach ($s3storage as $file)
     <div class="col px-2 py-4">
       <div class="card text-center">
-        <img src="{{ str_replace('public/datasets', 'storage/datasets', $file) }}" class="card-img-top" alt="image" />
+        {{-- <img src="{{ str_replace('public/datasets', 'storage/datasets', $file) }}" class="card-img-top" alt="image" /> --}}
+        <img src="{{ $file }}" class="card-img-top" alt="image" />
         <div class="card-body">
           <h5 class="card-title text-sm">Card title</h5>
           <a href="#" class="btn btn-danger mt-2" style="background-color: #850000">Delete</a>

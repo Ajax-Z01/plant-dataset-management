@@ -11,14 +11,8 @@ class Project extends Model
     protected $fillable = [
         'title',
         'label',
-        'collaborator',
-        'url',
-        'accesskey',
-        'secretaccesskey',
-        // 'user_id'
+        'url_endpoint',
+        'access_key',
+        'secret_access_key',
     ];
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
 }

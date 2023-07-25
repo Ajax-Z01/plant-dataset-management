@@ -11,9 +11,7 @@
             </button>
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="dropdown03">
-            {{-- <i class="fa fa-user-circle pe-2" style="color: #285430 font-size: 30px"></i> --}}
-            {{-- <i class="fas fa-user-circle pe-1" style="color: #285430; font-size: 30px"></i> --}}
-            <ul class="navbar-nav">
+            {{-- <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" id="dropdownMenuButton" role="button" style="color: #285430" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell cursor-pointer d-none d-lg-block" style="font-size: 20px"></i>
@@ -57,11 +55,10 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> --}}
             <ul class="navbar-nav pe-2">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle font-weight-bold px-3 py-2 rounded shadow-none" style="color: #285430" href="#" id="dropdown03link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{-- <img src="{{ auth()->user()->avatar }}" alt="profile_image" class="navbar-brand-img mx-2 mt-2" style="width: 30px; height: 30px"> --}}
                         <span class="d-sm-inline">{{ auth()->user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu overflow-auto mt-0" aria-labelledby="dropdown03link">

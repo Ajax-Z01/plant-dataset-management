@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/create-project', [NewProjectFormController::class, 'create'])->name('create.form');
 	Route::post('/create-project', [NewProjectFormController::class, 'store'])->name('create.store');
 	
-	Route::get('/view-project', [ViewProjectController::class, 'index']);
+	Route::get('/view-project/{id}', [ViewProjectController::class, 'index']);
 
 	Route::get('/show-post', [PostController::class, 'index']);
 	Route::post('/create-post', [PostController::class, 'store']);

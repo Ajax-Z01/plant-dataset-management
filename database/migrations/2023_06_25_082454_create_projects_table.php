@@ -15,10 +15,9 @@ return new class extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('label');
-            $table->string('collaborator');
-            $table->string('url');
-            $table->string('accesskey');
-            $table->string('secretaccesskey');
+            $table->string('url_endpoint');
+            $table->string('access_key');
+            $table->string('secret_access_key');
             $table->timestamps();
         });
     }
