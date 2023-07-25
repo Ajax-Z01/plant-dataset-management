@@ -8,9 +8,6 @@
           <a href="{{ url('profile') }}" target="_blank" class="mx-xl-4 mx-3 mb-sm-0 mb-2" style="color: #fff">
               Profile
           </a>
-          <a href="#" target="_blank" class="mx-xl-4 mx-3 mb-sm-0 mb-2" style="color: #fff">
-              About Us
-          </a>
           <a href="{{ url('create-project') }}" target="_blank" class="mx-xl-4 mx-3 mb-sm-0 mb-2" style="color: #fff">
               Create
           </a>
