@@ -13,19 +13,18 @@ use function GuzzleHttp\Promise\all;
 
 class ViewProjectController extends Controller
 {
-    public function index($id) {
+    public function index($id) 
+    {
+        $project = Project::find($id);
         
-        // $project = Project::find($id);
-        
-        $projects = DB::table('projects')->get();
-        $labels = DB::table('labels')->get();
+        $labels = $project->labels;
 
         // Access S3 storage using the 's3' disk driver
         $s3storage = Storage::disk('s3');
 
         // Retrieve the list of files from the S3 bucket
         $files = $s3storage->allFiles();
-
+        
         // $s3storage = Storage::build([
         //     'driver' => 's3',
         //     'key' => $project->access_key,
@@ -43,7 +42,7 @@ class ViewProjectController extends Controller
         // dd($files);
         return view('view-project', [
             's3storage' =>  $s3storage,
-            'projects' => $projects,
+            'project' => $project,
             'labels' => $labels,
             'files' => $files,
         ]);

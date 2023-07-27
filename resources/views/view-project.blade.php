@@ -3,11 +3,9 @@
 @section('content')
   <div class="container-fluid py-3" >
     <div class="card">
-      @foreach($projects as $project)
         <div class="text-center text-uppercase mt-3">
           <h3>{{ $project->title }}</h3>
         </div>
-      @endforeach
       <div class="row">
         <div class="col-7">
           <div class="card-body p-2">
@@ -51,9 +49,9 @@
     @foreach ($files as $file)
     <div class="col px-2 py-4">
       <div class="card text-center">
-        @php
-        $imageUrl = Storage::disk('s3')->url($file);
-        @endphp
+          @php
+          $imageUrl = Storage::disk('s3')->url($file);
+          @endphp
       <img src="{{ $imageUrl }}" class="card-img-top" alt="image" />
         <div class="card-body">
           <h5 class="card-title text-sm">Card title</h5>

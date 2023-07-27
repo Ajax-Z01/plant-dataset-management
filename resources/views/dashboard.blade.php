@@ -93,10 +93,10 @@
                       </h5>
                     </a>
                     <p class="my-2 text-sm">
-                      677 items
+                      {{ $fileCountsByProjectId[$project->id] }} File(s)
                     </p>
                     <p class="my-2 text-sm">
-                      5 labels
+                        {{ $labelCountsByProjectId[$project->id] }} Label(s)
                     </p>
                     <div class="d-flex align-items-center justify-content-center">
                       <a href="{{ url('view-project/' . $project->id) }}" class="btn bg-gradient-success btn-sm my-2">View Project</a>
