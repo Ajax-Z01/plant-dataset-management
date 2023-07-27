@@ -10,6 +10,8 @@ use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\ViewProjectController;
+use App\Http\Controllers\SetupProjectController;
+use App\Http\Controllers\ResultProjectController;
 use App\Http\Controllers\UpdateProfileController;
 use App\Http\Controllers\NewProjectFormController;
 
@@ -48,7 +50,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/create-project', [NewProjectFormController::class, 'store'])->name('create.store');
 	
 	Route::get('/view-project/{id}', [ViewProjectController::class, 'index']);
-
+	
+	Route::get('/result-project', [ResultProjectController::class, 'index'])->name('result-project');
+	
 	Route::get('/show-post', [PostController::class, 'index']);
 	Route::post('/create-post', [PostController::class, 'store']);
 

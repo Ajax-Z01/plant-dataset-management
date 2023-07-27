@@ -15,31 +15,37 @@ class ViewProjectController extends Controller
 {
     public function index($id) {
         
-        $project = Project::find($id);
-        // dd($project->accesskey);
+        // $project = Project::find($id);
+        
+        $projects = DB::table('projects')->get();
+        $labels = DB::table('labels')->get();
 
-        $s3storage = Storage::build([
-            'driver' => 's3',
-            'key' => $project->access_key,
-            'secret' => $project->secret_access_key,
-            'endpoint' => $project->url_endpoint,
-            'region' => 'Jogja',
-            'bucket' => 'nabell',
-        ]);
+        // Access S3 storage using the 's3' disk driver
+        $s3storage = Storage::disk('s3');
+
+        // Retrieve the list of files from the S3 bucket
+        $files = $s3storage->allFiles();
+
+        // $s3storage = Storage::build([
+        //     'driver' => 's3',
+        //     'key' => $project->access_key,
+        //     'secret' => $project->secret_access_key,
+        //     'endpoint' => $project->url_endpoint,
+        //     'region' => 'Jogja',
+        //     'bucket' => 'nabell',
+        // ]);
         // $s3storage->allFiles();
 
         // dd($s3storage->allFiles());
         // $files = Storage::allFiles($s3storage);
 
-        $projects = DB::table('projects')->get();
-        $labels = DB::table('projects')->get();
 
         // dd($files);
         return view('view-project', [
             's3storage' =>  $s3storage,
             'projects' => $projects,
             'labels' => $labels,
-            // 'files' => $files,
+            'files' => $files,
         ]);
     }
 }

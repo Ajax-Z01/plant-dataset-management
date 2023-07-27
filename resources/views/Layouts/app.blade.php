@@ -89,4 +89,11 @@
   });
 </script>
 
+<script>
+  function show(imageUrl) {
+    // Set the 'src' attribute of the image with id "image" to the clicked image URL
+    document.getElementById('image').src = imageUrl;
+  }
+</script>
+
 </html>
