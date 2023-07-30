@@ -47,21 +47,26 @@
 
   <div class="row row-cols-7 g-2 g-lg-3 px-4">
     @foreach ($files as $file)
-    <div class="col px-2 py-4">
-      <div class="card text-center">
-          @php
-          $imageUrl = Storage::disk('s3')->url($file);
-          @endphp
-      <img src="{{ $imageUrl }}" class="card-img-top" alt="image" />
-        <div class="card-body">
-          <h5 class="card-title text-sm">Card title</h5>
-          <a href="#" class="btn btn-danger mt-2" style="background-color: #285430" onclick="show('{{ $imageUrl }}')">Show</a>
-          <a href="#" class="btn btn-danger mt-2" style="background-color: #850000">Delete</a>
-        </div>
-      </div>
-    </div>
+        @php
+            $fileUrl = $file->url;
+            $fileExtension = pathinfo($fileUrl, PATHINFO_EXTENSION);
+        @endphp
+
+        @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif'])) {{-- Check if the file has an image extension --}}
+            <div class="col px-2 py-4">
+                <div class="card text-center">
+                    <img src="{{ $fileUrl }}" class="card-img-top" alt="image" />
+                    <div class="card-body">
+                        <h5 class="card-title text-sm">Card title</h5>
+                        <a href="#" class="btn btn-danger mt-2" style="background-color: #285430" onclick="show('{{ $fileUrl }}')">Show</a>
+                        <a href="#" class="btn btn-danger mt-2" style="background-color: #850000">Delete</a>
+                    </div>
+                </div>
+            </div>
+        @endif
     @endforeach
   </div>
+
 
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

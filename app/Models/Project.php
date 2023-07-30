@@ -9,8 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Project extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'title',
+        'bucket_name',
+        'region',
         'url_endpoint',
         'access_key',
         'secret_access_key',
