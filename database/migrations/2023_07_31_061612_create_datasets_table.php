@@ -11,16 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('label_project', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('datasets', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('filename');
+
             $table->unsignedInteger('label_id');
             $table->foreign('label_id')->references('id')->on('labels')->onDelete('cascade');
+
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 
             $table->timestamps();
-
         });
     }
 
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('label_project');
+        Schema::dropIfExists('datasets');
     }
 };

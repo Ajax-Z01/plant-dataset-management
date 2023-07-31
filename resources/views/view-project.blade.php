@@ -3,56 +3,109 @@
 @section('content')
   <div class="container-fluid py-3" >
     <div class="card">
-        <div class="text-center text-uppercase mt-3">
-          <h3>{{ $project->title }}</h3>
-        </div>
       <div class="row">
         <div class="col-7">
           <div class="card-body p-2">
+            {{-- <h3>{{ $project->title }}</h3> --}}
             <ul class="list-group m-3" style="color: #285430">
-              @foreach($labels as $label)
-              <li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong style="color: #285430">
-                <span><i class="fas fa-tags pe-2" style="color: #285430 ;"></i></span>
-                Label :</strong> &nbsp; {{ $label->name }}
-              </li>
-              @endforeach
-            </ul>
-            <div class="row">
-              <div class="col-8 d-flex align-items-center">
-                <select class="form-select" aria-label="Default select example">
-                  @foreach ($labels as $label)
-                  <option selected>{{ $label->name }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="col-4 d-flex justify-content-start">
-                <div class="button">
-                  <a class="btn bg-gradient-success btn-sm py-1 px-3 my-2 fs-6">save</a>
-                </div>
+            {{-- @foreach($labels as $label) --}}
+            <li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong style="color: #285430">
+              <span><i class="fas fa-tags pe-2" style="color: #285430 ;"></i></span>
+              Project name :</strong> &nbsp; {{ $project->title }}
+            </li>
+            {{-- @endforeach --}}
+          </ul>
+          <div class="row">
+            <div class="col-8 d-flex align-items-center">
+              <select class="form-select" aria-label="Default select example">
+                @foreach ($labels as $label)
+                <option selected>{{ $label->name }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="col-4 d-flex justify-content-start">
+              <div class="button">
+                <a class="btn bg-gradient-success btn-sm py-1 px-3 my-2 fs-6">save</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-5">
-          <h5 class="text-center m-3">Display Image</h5>
-          <img class="mx-auto d-block py-4" id="image" src="" alt="">
-        </div>
       </div>
-      <!-- Button trigger modal -->
-      <div class="button d-flex justify-content-center my-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        <a class="btn bg-gradient-success btn-sm my-2">SUBMIT</a>
+      <div class="col-5">
+        <div class="d-flex justify-content-end p-3">
+          <a href="{{ url('result-project') }}" class="btn bg-gradient-success btn-sm my-2">Training Data</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="row row-cols-7 g-2 g-lg-3 px-4">
+  <div class="row mt-3">
+    <div class="col-9">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Datasets table</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Images</th>
+                  <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">File Name</th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($files as $file)
+                  @php
+                      $fileUrl = $file->url;
+                      $fileExtension = pathinfo($fileUrl, PATHINFO_EXTENSION);
+                  @endphp
+
+                  @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif']))
+                    <tr>
+                      <td>
+                        <img src="{{ $fileUrl }}" class="avatar ms-4" alt="image">
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ $file->filename }}</p>
+                      </td>
+                      <td class="align-middle text-center">
+                        <a href="javascript:;" class="text-secondary font-weight-bold text-sm" onclick="show('{{ $fileUrl }}')">
+                          View
+                        </a>
+                      </td>
+                      <td class="align-middle text-center">
+                        <a href="javascript:;" class="text-secondary font-weight-bold text-sm" data-toggle="tooltip" data-original-title="Edit user">
+                          Delete
+                        </a>
+                      </td>
+                    </tr>
+                  @endif
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card">
+        <h5 class="text-center m-3">Display Image</h5>
+        <img class="mx-auto d-block py-4" id="image" src="" alt="">
+      </div>
+    </div>
+  </div>
+
+
+  {{-- <div class="row row-cols-7 g-2 g-lg-3 px-4">
     @foreach ($files as $file)
         @php
             $fileUrl = $file->url;
             $fileExtension = pathinfo($fileUrl, PATHINFO_EXTENSION);
         @endphp
 
-        @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif'])) {{-- Check if the file has an image extension --}}
+        @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif'])) Check if the file has an image extension
             <div class="col px-2 py-4">
                 <div class="card text-center">
                     <img src="{{ $fileUrl }}" class="card-img-top" alt="image" />
@@ -65,54 +118,6 @@
             </div>
         @endif
     @endforeach
-  </div>
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">SETUP PROJECT</h1>
-        </div>
-        <form action="" method="post" enctype="multipart/form-data">
-          @csrf
-          @method('PUT')
-          <div class="modal-body">
-            <form action="" method="post" enctype="multipart/form-data">
-              @csrf
-              <div class="form-group">
-                <label for="label" class="form-label">Architecture</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Inceptionv3</option>
-                    <option value="1">AlexNet</option>
-                    <option value="2">DenseNet121</option>
-                    <option value="3">VGG16</option>
-                </select>
-              </div>
-              <div class="form-group">
-                  <label for="url" class="form-label">Learning Rate</label>
-                  <input name="url" type="text" class="form-control shadow py-2 mb-4 bg-body rounded" id="url" placeholder="input learning rate here" required>
-              </div>
-              <div class="form-group">
-                <label for="label" class="form-label">Optimizer</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Adam</option>
-                    {{-- <option value="1">Adam</option> --}}
-                </select>
-            </div>
-            </form>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button type="button" class="btn btn-secondary py-2 rounded-pill" data-bs-dismiss="modal">Close</button>
-            {{-- <button role="button" class="btn btn-primary py-2 rounded-pill" href="{{ route('dashboard') }}">Submit</button> --}}
-            <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              <a class="btn btn-primary py-2 rounded-pill" href="{{ route('result-project') }}">Submit</a>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  </div> --}}
 
 @endsection

@@ -47,8 +47,7 @@ class NewProjectFormController extends Controller
             if ($labelsInput) {
                 $labels = explode(',', $labelsInput);
                 foreach ($labels as $labelName) {
-                    $label = Label::firstOrCreate(['name' => $labelName]);
-                    $project->labels()->attach($label->id);
+                    $label = Label::firstOrCreate(['name' => $labelName, 'project_id' => $project->id]);
                 }
             }
 

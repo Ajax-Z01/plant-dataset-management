@@ -40,35 +40,37 @@ class ViewProjectController extends Controller
         foreach ($filesArray as $file) {
             $fileUrl = $client->getObjectUrl($project->bucket_name, $file['path']);
             $file->url = str_replace('https://bucket.is3.cloudhost.id/', 'https://is3.cloudhost.id/bucket/', $fileUrl);
+            $file->filename = basename($file['path']);
         }
-
+        
         return view('view-project', [
             'project' => $project,
             'labels' => $labels,
             'files' => $filesArray,
         ]);
     }
+
+    public function storeDataset(Request $request, $projectId)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'filename' => 'required|string|max:255',
+            'label_id' => 'required|integer', // Assuming label_id comes from the frontend or request
+        ]);
+
+        // Assuming you have authentication set up, you can retrieve the user_id from the authenticated user
+        $user_id = auth()->user()->id;
+
+        // Create a new dataset record
+        Dataset::create([
+            'filename' => $request->input('filename'),
+            'user_id' => $user_id,
+            'project_id' => $projectId,
+            'label_id' => $request->input('label_id'),
+        ]);
+
+        // Redirect back or return a response indicating successful dataset creation
+        return redirect()->back()->with('success', 'Dataset saved successfully!');
+    
+    }
 }
-
-
-
-
-    // public function index($id)
-    // {
-    //     $project = Project::find($id);
-
-    //     $labels = $project->labels;
-
-    //     // Access S3 storage using the 's3' disk driver
-    //     $s3storage = Storage::disk('s3');
-
-    //     // Retrieve the list of files from the S3 bucket
-    //     $files = $s3storage->allFiles();
-
-    //     return view('view-project', [
-    //         's3storage' =>  $s3storage,
-    //         'project' => $project,
-    //         'labels' => $labels,
-    //         'files' => $files,
-    //     ]);
-    // }

@@ -13,8 +13,7 @@ class HomeController extends Controller
     public function home()
     {
         $projects = DB::table('projects')->get();
-        $labels = DB::table('label_project')->get();
-        $allLabels = DB::table('labels')->get();
+        $labels = DB::table('labels')->get();
 
         // Create an associative array to store label counts based on project_id
         $labelCountsByProjectId = [];
@@ -65,7 +64,6 @@ class HomeController extends Controller
         return view('dashboard', [
             'projects' => $projects,
             'labels' => $labels,
-            'allLabels' => $allLabels,
             'labelCountsByProjectId' => $labelCountsByProjectId,
             'fileCountsByProjectId' => $fileCountsByProjectId,
         ]);

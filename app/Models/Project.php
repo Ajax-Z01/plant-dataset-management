@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Label;
+use App\Models\Dataset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,6 +24,11 @@ class Project extends Model
 
     public function labels()
     {
-        return $this->belongsToMany(Label::class);
+        return $this->hasMany(Label::class);
+    }
+
+    public function datasets()
+    {
+        return $this->hasMany(Dataset::class);
     }
 }

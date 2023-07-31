@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            // $table->string('label');
             $table->string('bucket_name');
             $table->string('region');
             $table->string('url_endpoint');
