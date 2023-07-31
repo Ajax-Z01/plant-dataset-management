@@ -2,49 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use Aws\S3\S3Client;
 use App\Models\Project;
-use Google\Service\CloudSearch\Id;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Storage;
-
-use function GuzzleHttp\Promise\all;
+use Aws\Credentials\Credentials;
+use League\Flysystem\Filesystem;
+use League\Flysystem\FileAttributes;
+use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 
 class ViewProjectController extends Controller
 {
-    public function index($id) 
+    public function index($id)
     {
         $project = Project::find($id);
-        
+
         $labels = $project->labels;
 
-        // Access S3 storage using the 's3' disk driver
-        $s3storage = Storage::disk('s3');
+        // Access S3 storage using custom configuration
+        $s3config = [
+            'credentials' => new Credentials(
+                $project->access_key,
+                $project->secret_access_key
+            ),
+            'region' => $project->region, // Replace this with your valid AWS region
+            'version' => 'latest',
+            'endpoint' => $project->url_endpoint, // Provide the complete endpoint URL here
+        ];
 
-        // Retrieve the list of files from the S3 bucket
-        $files = $s3storage->allFiles();
-        
-        // $s3storage = Storage::build([
-        //     'driver' => 's3',
-        //     'key' => $project->access_key,
-        //     'secret' => $project->secret_access_key,
-        //     'endpoint' => $project->url_endpoint,
-        //     'region' => 'Jogja',
-        //     'bucket' => 'nabell',
-        // ]);
-        // $s3storage->allFiles();
+        $client = new S3Client($s3config);
+        $adapter = new AwsS3V3Adapter($client, $project->bucket_name); // Replace 'bucket_name' with the actual name of your S3 bucket
+        $filesystem = new Filesystem($adapter);
 
-        // dd($s3storage->allFiles());
-        // $files = Storage::allFiles($s3storage);
+        // Get all the files in the bucket as an array
+        $files = $filesystem->listContents('', true);
+        $filesArray = iterator_to_array($files);
 
+        // Get the file URLs and content
+        foreach ($filesArray as $file) {
+            $fileUrl = $client->getObjectUrl($project->bucket_name, $file['path']);
+            $file->url = str_replace('https://bucket.is3.cloudhost.id/', 'https://is3.cloudhost.id/bucket/', $fileUrl);
+        }
 
-        // dd($files);
         return view('view-project', [
-            's3storage' =>  $s3storage,
             'project' => $project,
             'labels' => $labels,
-            'files' => $files,
+            'files' => $filesArray,
         ]);
     }
 }
+
+
+
+
+    // public function index($id)
+    // {
+    //     $project = Project::find($id);
+
+    //     $labels = $project->labels;
+
+    //     // Access S3 storage using the 's3' disk driver
+    //     $s3storage = Storage::disk('s3');
+
+    //     // Retrieve the list of files from the S3 bucket
+    //     $files = $s3storage->allFiles();
+
+    //     return view('view-project', [
+    //         's3storage' =>  $s3storage,
+    //         'project' => $project,
+    //         'labels' => $labels,
+    //         'files' => $files,
+    //     ]);
+    // }
