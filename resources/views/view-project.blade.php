@@ -30,7 +30,7 @@
       </div>
       <div class="col-5">
         <div class="d-flex justify-content-end p-3">
-          <a href="{{ url('result-project') }}" class="btn bg-gradient-success btn-sm my-2">Training Data</a>
+          <a href="{{ url('result-project/' . $project->id) }}" class="btn bg-gradient-success btn-sm my-2">Training Data</a>
         </div>
       </div>
     </div>

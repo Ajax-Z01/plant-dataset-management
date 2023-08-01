@@ -39,8 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/profile', [InfoUserController::class, 'create'])->name('create.profile');
 	Route::post('/profile', [InfoUserController::class, 'store']);
 	Route::post('/profile', [InfoUserController::class, 'update'])->name('edit.profile');
-	// Route::get('/edit-profile', [UpdateProfileController::class, 'edit'])->name('profile.edit');
-	// Route::post('/edit-profile', [UpdateProfileController::class, 'update'])->name('profile.update');
 	
     Route::get('/login', function () {
 		return view('dashboard');
@@ -51,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('/view-project/{id}', [ViewProjectController::class, 'index']);
 	
-	Route::get('/result-project', [ResultProjectController::class, 'index'])->name('result-project');
+	Route::get('/result-project/{id}', [ResultProjectController::class, 'index'])->name('result-project');
 	
 	Route::get('/show-post', [PostController::class, 'index']);
 	Route::post('/create-post', [PostController::class, 'store']);
