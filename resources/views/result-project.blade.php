@@ -39,15 +39,9 @@
           </select>
         </div>
         <div class="form-group">
-            <label for="url" class="form-label">Learning Rate</label>
-            <input name="url" type="text" class="form-control shadow py-2 mb-4 bg-body rounded" id="url" placeholder="input learning rate here" required>
+            <label for="epoch" class="form-label">Epoch</label>
+            <input name="epoch" type="text" class="form-control shadow py-2 mb-4 bg-body rounded" id="epoch" placeholder="input learning rate here" required>
         </div>
-        <div class="form-group">
-          <label for="label" class="form-label">Optimizer</label>
-          <select class="form-select" aria-label="Default select example">
-              <option selected>Adam</option>
-          </select>
-      </div>
       </form>
     </div>
     <div class="text-center">

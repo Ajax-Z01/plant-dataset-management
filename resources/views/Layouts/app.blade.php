@@ -29,6 +29,30 @@
   <!-- AOS - Animate On Scroll -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
+  
+  <style>
+    /* Custom CSS for making the col-9 scrollable */
+    .col-9 .card {
+      height: 580px;
+    }
+    
+    .col-9 .card-body {
+      height: 500px; /* Set a desired height for the scrollable area */
+      overflow-y: auto;
+    }
+
+    .col-9 .card-body .card {
+      height: 400px;
+    }
+
+    .col-lg-12 .card-body .card {
+      height: 500px;
+    }
+
+    .col-lg-12 .card-body .card .btn {
+      padding: 10px 20px;
+    }
+  </style>
 </head>
 
 <body class="offline-doc">
@@ -95,5 +119,20 @@
     document.getElementById('image').src = imageUrl;
   }
 </script>
+
+<script>
+  function toggleColumns(fileUrl) {
+    // Update the 'src' attribute of the image with the clicked fileUrl
+    document.getElementById('image').src = fileUrl;
+
+    // Toggle classes for col-9 and col-3
+    const col9Div = document.getElementById('col9Div');
+    const col3Div = document.getElementById('col3Div');
+
+    col9Div.classList.toggle('col-lg-12');
+    col3Div.classList.toggle('d-none');
+  }
+</script>
+
 
 </html>
