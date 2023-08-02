@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Aws\S3\S3Client;
 use App\Models\Label;
+use App\Models\Dataset;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Aws\Credentials\Credentials;
+use League\Flysystem\Filesystem;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 
 class NewProjectFormController extends Controller
 {
@@ -51,20 +56,41 @@ class NewProjectFormController extends Controller
                 }
             }
 
-            // Check if the S3 bucket is accessible using provided credentials
-            $client = new S3Client([
-                'credentials' => [
-                    'key' => $project->access_key,
-                    'secret' => $project->secret_access_key,
-                ],
-                'region' => $project->region,
+            // Access S3 storage using custom configuration
+            $s3config = [
+                'credentials' => new Credentials(
+                    $project->access_key,
+                    $project->secret_access_key
+                ),
+                'region' => $project->region, // Replace this with your valid AWS region
                 'version' => 'latest',
-                'endpoint' => $project->url_endpoint,
-            ]);
+                'endpoint' => $project->url_endpoint, // Provide the complete endpoint URL here
+            ];
 
+            $client = new S3Client($s3config);
             // List objects in the bucket to check if it's accessible
-            $bucketName = $project->bucket_name;
-            $objects = $client->listObjects(['Bucket' => $bucketName]);
+            $objects = $client->listObjects(['Bucket' => $project->bucket_name]);
+            $adapter = new AwsS3V3Adapter($client, $project->bucket_name); // Replace 'bucket_name' with the actual name of your S3 bucket
+            $filesystem = new Filesystem($adapter);
+
+            // Get all the files in the bucket as an array
+            $files = $filesystem->listContents('', true);
+            $filesArray = iterator_to_array($files);
+            // Link the datasets to the project
+            foreach ($filesArray as $file) {
+                $file->filename = basename($file['path']);
+
+                // Assuming you have the authenticated user available, you can get the user_id
+                $user_id = Auth::user()->id;
+
+                // Create a new dataset for each file with default label_id 1 ('Unlabeled')
+                Dataset::create([
+                    'filename' => $file->filename,
+                    'label_id' => $label->id,
+                    'project_id' => $project->id,
+                    'user_id' => $user_id,
+                ]);
+            }
 
             // Handle cases where the S3 bucket is not accessible
             if (!$objects) {
