@@ -23,26 +23,23 @@
 <h6 class="text-center text-uppercase fs-4 my-3">setup project</h6>
 
 <div class="mx-6">
-  <form action="" method="post" enctype="multipart/form-data">
+  <form action="{{ route('execute.python') }}" method="post" enctype="multipart/form-data">
     @csrf
-    @method('PUT')
+    @method('POST')
     <div class="modal-body">
-      <form action="" method="post" enctype="multipart/form-data">
-        @csrf
         <div class="form-group">
           <label for="label" class="form-label">Architecture</label>
-          <select class="form-select" aria-label="Default select example">
-              <option selected>Inceptionv3</option>
-              <option value="1">AlexNet</option>
-              <option value="2">DenseNet121</option>
-              <option value="3">VGG16</option>
+          <select class="form-select" name="architecture" id="architectureSelect" aria-label="Default select example">
+              <option selected value="inceptionv3">Inceptionv3</option>
+              <option value="alexnet">AlexNet</option>
+              <option value="densenet121">DenseNet121</option>
+              <option value="vgg16">VGG16</option>
           </select>
         </div>
         <div class="form-group">
             <label for="epoch" class="form-label">Epoch</label>
             <input name="epoch" type="text" class="form-control shadow py-2 mb-4 bg-body rounded" id="epoch" placeholder="input learning rate here" required>
         </div>
-      </form>
     </div>
     <div class="text-center">
       <button type="submit" class="btn bg-gradient-success w-30 mt-4 mb-0">Submit</button>

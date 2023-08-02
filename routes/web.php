@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/show-post', [PostController::class, 'index']);
 	Route::post('/create-post', [PostController::class, 'store']);
+
+	Route::post('/execute-python', [ResultProjectController::class, 'executePythonScript'])->name('execute.python');
 });
 
 Route::get('/auth/redirect', [authController::class, 'redirect'])->name('google.redirect');

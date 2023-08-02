@@ -1,7 +1,7 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-  <div class="container-xxl">
+  <div class="container-xxl p-0">
     <div class="row p-4 ms-3">
       <div class="col-md-6" data-aos="fade-right" data-aos-duration="2000">
         <div class="text-label" style="color: #263A29">
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="container pt-3 pb-0 mb-3">
+    <div class="container py-3 px-0 mb-3">
       <div class="border border-2 border-bottom m-auto" style="width: 100%; opacity: 0.7"></div>
     </div>
     {{-- <div class="carousel-text-label mt-3" style="color: #263A29" data-aos="fade-down">
