@@ -42,7 +42,7 @@
     }
 
     .col-9 .card-body .card {
-      height: 400px;
+      height: 420px;
     }
 
     .col-lg-12 .card-body .card {

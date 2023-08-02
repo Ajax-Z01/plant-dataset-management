@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="label" class="form-label">Label</label>
-                            <input name="label" type="text" data-role="tagsinput" value="Tanjung,Branang" class="form-control shadow py-2 mb-4 bg-body rounded @error('label') is-invalid @enderror" id="label" placeholder="Enter your label here" value="{{ old('label') }}">
+                            <input name="label" type="text" data-role="tagsinput" value="Hot Beauty,Inata Agrihoti,Ciko,Pilar" class="form-control shadow py-2 mb-4 bg-body rounded @error('label') is-invalid @enderror" id="label" placeholder="Enter your label here" value="{{ old('label') }}">
                             @error('label')
                                 <div class="invalid-feedback">
                                     {{ $message }}

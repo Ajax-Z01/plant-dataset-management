@@ -20,15 +20,15 @@
       </div>
     </div>
 
-    <div class="container pt-3 pb-0">
+    <div class="container pt-3 pb-0 mb-3">
       <div class="border border-2 border-bottom m-auto" style="width: 100%; opacity: 0.7"></div>
     </div>
-    <div class="carousel-text-label mt-3" style="color: #263A29" data-aos="fade-down">
+    {{-- <div class="carousel-text-label mt-3" style="color: #263A29" data-aos="fade-down">
       <p>What is our goal ?</p>
-    </div>
+    </div> --}}
 
     <!-- Carousel -->
-    <div id="carouselExampleCaptions" class="carousel slide m-5 mt-4" data-bs-ride="carousel">
+    {{-- <div id="carouselExampleCaptions" class="carousel slide m-5 mt-4" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -62,12 +62,12 @@
         </div>
         </div>
       </div>
-    </div>
+    </div> --}}
     <!-- End Carousel -->
 
-    <div class="container pt-0 pb-5">
+    {{-- <div class="container pt-0 pb-5">
       <div class="border border-2 border-bottom m-auto" style="width: 100%; opacity: 0.7"></div>
-    </div>
+    </div> --}}
     
     <div class="card py-6 mt-0" id="projects" style="background-color: #285430; border-radius: 0">
       <div class="col-12" data-aos="zoom-in">
