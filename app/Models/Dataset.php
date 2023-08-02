@@ -18,17 +18,17 @@ class Dataset extends Model
         'project_id',
     ];
 
-    public function labels()
+    public function label()
     {
         return $this->belongsTo(Label::class);
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function projects()
+    public function project()
     {
         return $this->belongsTo(Project::class);
     }

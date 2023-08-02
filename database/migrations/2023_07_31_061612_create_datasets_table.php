@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('datasets', function (Blueprint $table) {
             $table->id();
-
             $table->string('filename');
-
-            $table->unsignedInteger('label_id');
-            $table->foreign('label_id')->references('id')->on('labels')->onDelete('cascade');
-
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->unsignedInteger('project_id');
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-
+            $table->unsignedBigInteger('label_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('project_id');
             $table->timestamps();
+
+            $table->foreign('label_id')->references('id')->on('labels')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 

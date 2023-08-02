@@ -10,11 +10,13 @@ use Laravel\Socialite\Facades\Socialite;
 
 class authController extends Controller
 {
-    function redirect() {
+    function redirect()
+    {
         return Socialite::driver('google')->redirect();
     }
 
-    function callback() {
+    function callback()
+    {
         $googleUser = Socialite::driver('google')->user();
         // dd($googleUser);
         $user = User::updateOrCreate([
@@ -25,11 +27,10 @@ class authController extends Controller
             'avatar' => $googleUser->avatar,
             'password' => encrypt('admin@123')
         ]);
- 
-    Auth::login($user);
-    // dd($googleUser->avatar);
- 
-    return redirect('/dashboard');
 
+        Auth::login($user);
+        // dd($googleUser->avatar);
+
+        return redirect('/dashboard');
     }
 }
