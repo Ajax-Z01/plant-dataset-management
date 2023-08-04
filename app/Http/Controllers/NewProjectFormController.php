@@ -18,9 +18,7 @@ class NewProjectFormController extends Controller
 {
     public function create()
     {
-        // Fetch user data from the User model
-        $users = User::select('id', 'name', 'email')->get();
-        return view('create', compact('users'));
+        return view('create');
     }
 
     public function store(Request $request)
@@ -82,10 +80,8 @@ class NewProjectFormController extends Controller
             // Link the datasets to the project
             foreach ($filesArray as $file) {
                 $file->filename = basename($file['path']);
-
                 // Assuming you have the authenticated user available, you can get the user_id
                 $user_id = Auth::user()->id;
-
                 // Create a new dataset for each file with default label_id 1 ('Unlabeled')
                 Dataset::create([
                     'filename' => $file->filename,
@@ -101,25 +97,19 @@ class NewProjectFormController extends Controller
                 return redirect()->back()->with('error', 'Unable to access the S3 bucket. Please check your credentials and bucket name.');
             }
 
-            // Fetch user data from the User model
-            $users = User::select('id', 'name', 'email')->get();
-            // dd($users);
-
-            // Save collaborators to project_user pivot table
-            $selectedCollaborators = $request->input('selected_collaborators', []);
-            // dd($selectedCollaborators);
-            $project->collaborators()->sync($selectedCollaborators);
+            // Menambahkan ID user saat ini ke dalam daftar collaborator yang dipilih
+            $currentUser = Auth::user();
+            $collaboratorIds[] = $currentUser->id;
+            // Menghubungkan proyek dengan collaborator yang dipilih
+            $project->users()->syncWithoutDetaching($collaboratorIds);
 
             // Redirect to /dashboard with success message
             return redirect('/dashboard')->with([
                 'success' => 'Project created successfully!',
-                'users' => $users, // Pass the $users data to the dashboard view
             ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Error fetching users'], 500);
             // Handle any other exceptions that may occur during the creation or S3 access
             return redirect()->back()->with('error', 'An error occurred while creating the project: ' . $e->getMessage());
         }
     }
-
 }

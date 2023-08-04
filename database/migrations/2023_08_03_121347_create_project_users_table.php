@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_users', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('user_id');
             $table->boolean('is_active')->default(1);

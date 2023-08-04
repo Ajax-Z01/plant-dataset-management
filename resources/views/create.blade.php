@@ -29,25 +29,6 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="form-group py-3">
-                        <label for="collaborator" class="form-label me-3">Collaborator</label>
-                        <button type="button" class="btn btn-primary mb-0" style="padding: 6px 18px" onclick="toggleSearchBar()">
-                            <i class="fas fa-user pe-2" title="Edit Profile"></i>
-                            <span>Add People</span>
-                        </button>
-                        <div id="searchBar" style="display: none;">
-                            <input type="text" id="search_collaborator" class="form-control" placeholder="Search by name or email">
-                            <div id="searchResults" class="mt-2">
-                                <!-- Search results will be displayed here -->
-                                {{-- @foreach ($users as $user)
-                                    <label style="font-weight: 400;margin-bottom: 0.5rem;">
-                                        <input type="checkbox" class="me-2 fw-normal" name="selected_collaborators[]" value="{{ $user->id }}">
-                                        {{ $user->name }} ({{ $user->email }})
-                                    </label>
-                                @endforeach --}}
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="bucket_name" class="form-label">Bucket Name</label>
                         <input name="bucket_name" type="text" class="form-control shadow py-2 mb-4 bg-body rounded @error('bucket_name') is-invalid @enderror" id="bucket_name" placeholder="Input Bucket Name here" required value="{{ old('bucket_name') }}">
@@ -133,46 +114,4 @@
         </div>
     </div>
 </div> --}}
-@endsection
-
-@section('scripts')
-<script>
-    const collaboratorData = @json($users); // Convert PHP array to JavaScript object
-  
-    function searchCollaborators() {
-      const searchTerm = searchCollaboratorInput.value.toLowerCase();
-      searchResultsDiv.innerHTML = '';
-  
-      if (searchTerm.length === 0) {
-          return;
-      }
-  
-      const filteredCollaborators = collaboratorData.filter(collaborator =>
-          collaborator.name.toLowerCase().includes(searchTerm) || collaborator.email.toLowerCase().includes(searchTerm)
-      );
-  
-      filteredCollaborators.forEach(collaborator => {
-          const resultDiv = document.createElement('div');
-          resultDiv.className = 'mb-0';
-          resultDiv.innerHTML = `
-              <label style="font-weight: 400;margin-bottom: 0.5rem;">
-                  <input type="checkbox" class="me-2 fw-normal" name="selected_collaborators[]" value="${collaborator.id}">
-                  ${collaborator.name} (${collaborator.email})
-              </label>
-          `;
-          searchResultsDiv.appendChild(resultDiv);
-      });
-    }
-  
-    function toggleSearchBar() {
-        const searchBar = document.getElementById('searchBar');
-        searchBar.style.display = searchBar.style.display === 'none' ? 'block' : 'none';
-    }
-  
-    const searchCollaboratorInput = document.getElementById('search_collaborator');
-    const searchResultsDiv = document.getElementById('searchResults');
-  
-    searchCollaboratorInput.addEventListener('input', searchCollaborators);
-</script>
-    
 @endsection

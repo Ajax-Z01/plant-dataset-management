@@ -49,6 +49,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/view-project/{id}', [ViewProjectController::class, 'index'])->name('view.project');
 	Route::match(['get', 'put'], '/view-project/update-label{id}', [ViewProjectController::class, 'updateDataset'])->name('update.dataset');
+	Route::delete('/view-project/delete-label/{id}', [ViewProjectController::class, 'deleteDataset'])->whereNumber('id')->name('delete.dataset');
+
+	Route::post('/add-collaborator/{id}', [ViewProjectController::class, 'addCollaborator'])->whereNumber('id')->name('add.collaborator');
 
 	Route::get('/result-project/{id}', [ResultProjectController::class, 'index'])->name('result-project');
 
@@ -60,13 +63,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/auth/redirect', [authController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/callback', [authController::class, 'callback'])->name('google.callback');
-
-Route::group(['middleware' => 'guest'], function () {
-	Route::get('/register', [RegisterController::class, 'create'])->name('create.register');
-	Route::post('/register', [RegisterController::class, 'store']);
-	Route::get('/login', [SessionsController::class, 'create']);
-	Route::post('/session', [SessionsController::class, 'store']);
-});
+Route::get('/register', [RegisterController::class, 'create'])->name('create.register');
+Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/login', [SessionsController::class, 'create']);
+Route::post('/session', [SessionsController::class, 'store']);
 
 Route::get('/login', function () {
 	return view('session/login-session');
