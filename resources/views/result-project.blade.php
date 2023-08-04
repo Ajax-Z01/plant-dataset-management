@@ -22,7 +22,7 @@
 </div> --}}
 <h6 class="text-center text-uppercase fs-4 my-3">setup project</h6>
 
-<div class="mx-6">
+<div class="container-xxl my-5 px-5">
   <form action="{{ route('execute.python') }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('POST')

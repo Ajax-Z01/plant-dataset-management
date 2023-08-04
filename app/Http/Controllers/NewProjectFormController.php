@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Aws\S3\S3Client;
 use App\Models\Label;
 use App\Models\Dataset;
@@ -17,7 +18,9 @@ class NewProjectFormController extends Controller
 {
     public function create()
     {
-        return view('create');
+        // Fetch user data from the User model
+        $users = User::select('id', 'name', 'email')->get();
+        return view('create', compact('users'));
     }
 
     public function store(Request $request)
@@ -98,10 +101,25 @@ class NewProjectFormController extends Controller
                 return redirect()->back()->with('error', 'Unable to access the S3 bucket. Please check your credentials and bucket name.');
             }
 
-            return redirect('/dashboard')->with('success', 'Project created successfully!');
+            // Fetch user data from the User model
+            $users = User::select('id', 'name', 'email')->get();
+            // dd($users);
+
+            // Save collaborators to project_user pivot table
+            $selectedCollaborators = $request->input('selected_collaborators', []);
+            // dd($selectedCollaborators);
+            $project->collaborators()->sync($selectedCollaborators);
+
+            // Redirect to /dashboard with success message
+            return redirect('/dashboard')->with([
+                'success' => 'Project created successfully!',
+                'users' => $users, // Pass the $users data to the dashboard view
+            ]);
         } catch (\Exception $e) {
+            return response()->json(['error' => 'Error fetching users'], 500);
             // Handle any other exceptions that may occur during the creation or S3 access
             return redirect()->back()->with('error', 'An error occurred while creating the project: ' . $e->getMessage());
         }
     }
+
 }

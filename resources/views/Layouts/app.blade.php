@@ -105,6 +105,7 @@
   <!-- Google Drive Oauth2 -->
   <script src="{{asset('assets/js/script.js')}}"></script>
 </body>
+
 <script>
   const phoneInputField = document.querySelector("#phone");
    const phoneInput = window.intlTelInput(phoneInputField, {
@@ -112,7 +113,8 @@
       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
   });
 </script>
-<script>
+
+{{-- <script>
   function viewFile(fileUrlWithDatasetId) {
     // Split fileUrlWithDatasetId to get fileUrl and datasetId
     const [fileUrl, datasetId] = fileUrlWithDatasetId.split(', ');
@@ -151,6 +153,9 @@
     col9Div.classList.toggle('col-lg-12');
     col3Div.classList.toggle('d-none');
   }
-</script>
+</script> --}}
+
+{{-- Add People Action or Collaboration --}}
+@yield('scripts')
 
 </html>

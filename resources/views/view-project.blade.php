@@ -81,3 +81,46 @@
 </div>
 
 @endsection
+
+@section('scripts')
+<script>
+    function viewFile(fileUrlWithDatasetId) {
+      // Split fileUrlWithDatasetId to get fileUrl and datasetId
+      const [fileUrl, datasetId] = fileUrlWithDatasetId.split(', ');
+  
+      // Update the 'src' attribute of the image with the clicked fileUrl
+      document.getElementById('image').src = fileUrl;
+  
+      // Set the selectedDatasetId to the datasetId of the clicked file
+      selectedDatasetId = datasetId;
+  
+      // Set the form action dynamically based on the datasetId
+      const form = document.getElementById('updateForm');
+      const baseUrl = "{{ url('/view-project/update-label/') }}"; // Set the base URL for the action
+      form.action = baseUrl + selectedDatasetId;
+  
+      // Toggle classes for col-9 and col-3
+      const col3Div = document.getElementById('col3Div');
+  
+      // Check if the col3Div is hidden before toggling visibility
+      if (col3Div.classList.contains('d-none')) {
+          const col9Div = document.getElementById('col9Div');
+          col9Div.classList.toggle('col-lg-12');
+          col3Div.classList.toggle('d-none');
+      }
+    }
+  
+  
+    function closeView() {
+      // Reset the 'src' attribute of the image
+      document.getElementById('image').src = '';
+  
+      // Toggle classes for col-9 and col-3
+      const col9Div = document.getElementById('col9Div');
+      const col3Div = document.getElementById('col3Div');
+  
+      col9Div.classList.toggle('col-lg-12');
+      col3Div.classList.toggle('d-none');
+    }
+</script>
+@endsection

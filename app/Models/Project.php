@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Label;
 use App\Models\Dataset;
 use Illuminate\Database\Eloquent\Model;
@@ -30,5 +31,10 @@ class Project extends Model
     public function datasets()
     {
         return $this->hasMany(Dataset::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'project_users');
     }
 }
