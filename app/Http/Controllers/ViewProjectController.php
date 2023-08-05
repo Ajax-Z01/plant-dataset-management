@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Aws\S3\S3Client;
 use App\Models\Dataset;
 use App\Models\Project;
@@ -18,6 +19,10 @@ class ViewProjectController extends Controller
     {
         $project = Project::find($id);
         $labels = $project->labels;
+        // Mendapatkan ID user yang saat ini digunakan
+        $currentUserId = auth()->user()->id;
+        // Mengambil semua user selain user yang saat ini digunakan
+        $users = User::select('id', 'name', 'email')->where('id', '!=', $currentUserId)->get();
 
         // Access S3 storage using custom configuration
         $s3config = [
@@ -68,6 +73,7 @@ class ViewProjectController extends Controller
             'project' => $project,
             'labels' => $labels,
             'files' => $filesArray,
+            'users' => $users,
         ]);
     }
 
@@ -88,5 +94,42 @@ class ViewProjectController extends Controller
 
         // Redirect back or return a response indicating successful dataset update
         return redirect()->back()->with('success', 'Dataset updated successfully!');
+    }
+
+    public function deleteDataset($id)
+    {
+        // Get the dataset by ID
+        $dataset = Dataset::findOrFail($id);
+
+        // Delete the dataset
+        $dataset->delete();
+
+        // Redirect back or return a response indicating successful dataset deletion
+        return redirect()->back()->with('success', 'Dataset deleted successfully!');
+    }
+
+    public function addCollaborator(Request $request, $id)
+    {
+        // Validasi request jika diperlukan
+        $request->validate([
+            'collaborators' => 'required|array', // Memastikan input adalah array
+            'collaborators.*' => 'exists:users,id', // Memastikan setiap nilai dalam array adalah ID user yang valid dalam tabel users
+        ]);
+
+        // Mendapatkan proyek berdasarkan $id
+        $project = Project::find($id);
+
+        if (!$project) {
+            return back()->with('error', 'Project not found'); // Jika proyek tidak ditemukan, kembali ke halaman sebelumnya dengan pesan error
+        }
+
+        // Mendapatkan daftar ID collaborator yang dipilih dari input
+        $collaboratorIds = $request->input('collaborators', []);
+
+        // Menghubungkan proyek dengan collaborator yang dipilih
+        $project->users()->syncWithoutDetaching($collaboratorIds);
+
+        // Redirect back or return a response indicating successful addition of collaborator
+        return redirect()->back()->with('success', 'Collaborator added successfully!');
     }
 }

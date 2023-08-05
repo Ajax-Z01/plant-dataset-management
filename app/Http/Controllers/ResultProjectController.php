@@ -7,14 +7,12 @@ use Illuminate\Http\Request;
 
 class ResultProjectController extends Controller
 {
-    public function index($id){
-
+    public function index($id)
+    {
         $project = Project::find($id);
-
         if (!$project) {
             abort(404); // Display a 404 error page or handle it as needed
         }
-
         return view('result-project', ['project' => $project]);
     }
 
@@ -22,28 +20,28 @@ class ResultProjectController extends Controller
     {
         $selectedArchitecture = $request->input('architecture');
         $epoch = $request->input('epoch');
-    
+
         switch ($selectedArchitecture) {
             case 'inceptionv3':
-                $scriptPath = 'Scripts\inceptionv3-1.py';
+                $scriptPath = 'inception-2.py';
                 break;
             case 'alexnet':
-                $scriptPath = 'Scripts\alexnet-1.py';
+                $scriptPath = 'alexnet-2.py';
                 break;
             case 'densenet121':
-                $scriptPath = 'Scripts\densenet121-1.py';
+                $scriptPath = 'densenet121-2.py';
                 break;
             case 'vgg16':
-                $scriptPath = 'Scripts\vgg16-1.py';
+                $scriptPath = 'vgg16-2.py';
                 break;
             default:
                 return response("Unknown architecture.", 400);
         }
-        
+
         $pythonPath = 'C:\Program Files\Python311\python.exe'; // Path to your Python interpreter
-        $command = "\"{$pythonPath}\" \"{$scriptPath}";
+        $command = "\"{$pythonPath}\" \"{$scriptPath}\""; // Added the missing closing double quote
         $output = shell_exec($command);
-    
+
         return view('python_output', ['output' => $output]);
-    }    
+    }
 }

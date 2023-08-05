@@ -16,14 +16,42 @@
             </div>
             <div class="col-5">
                 <div class="d-flex justify-content-end p-3">
-                    <a href="{{ url('result-project/' . $project->id) }}" class="btn bg-gradient-success btn-sm my-2">Training Data</a>
+                    <button type="button" class="btn bg-gradient-success btn-md my-2 mx-5" data-bs-toggle="modal" data-bs-target="#collaborator"><i class="fas fa-user pe-2" title="Edit Profile"></i><span>Add People</span></button>
+                    <div class="modal fade" id="collaborator" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Manage Access</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form role="form" action="{{ route('add.collaborator', $project->id) }}" method="post" enctype="multipart/form-data">
+                                        @method('POST')
+                                        @csrf
+                                        <label for="collaborator" class="form-label me-3">Collaborators</label>
+                                        @foreach ($users as $user)
+                                            <div class="px-2">
+                                                <input type="checkbox" name="collaborators[]" value="{{ $user->id }}" id="collaborator_{{ $user->id }}" 
+                                                {{ $project->users->contains($user->id) ? 'checked' : '' }}><label for="collaborator_{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</label>
+                                            </div>
+                                        @endforeach
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" style="background-color: #850000" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ url('result-project/' . $project->id) }}" class="btn bg-gradient-success btn-md my-2">Training Data</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <div class="row mt-5">
         <div class="col-9 col-lg-12" id="col9Div">
             <div class="card">
@@ -43,7 +71,11 @@
                                     <h5 class="card-title text-sm">{{ $file->label }}</h5>
                                     <div class="button">
                                         <button class="btn btn-danger btn-sm px-3" style="background-color: #285430" onclick="viewFile('{{ $file->url }}, {{ $datasetIds[$loop->index] }}')">View</button>
-                                        <button class="btn btn-danger btn-sm px-3" style="background-color: #850000" onclick="deleteFile()">Delete</button>
+                                        <a href="{{ route('delete.dataset', ['id' => $datasetIds[$loop->index]]) }}" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this data?')) document.getElementById('delete-form-{{ htmlentities($datasetIds[$loop->index]) }}').submit()";><button class="btn btn-danger btn-sm px-3" style="background-color: #850000" onclick="deleteFile()">Delete</button></a>
+                                        {{-- <form id="delete-form-{{ htmlentities($datasetIds[$loop->index]) }}" action="{{ route('delete.dataset', ['id' => $datasetIds[$loop->index]]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                        </form> --}}
                                     </div>
                                 </div>
                             </div>
