@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class SessionsController extends Controller
 {
+    public function index()
+    {
+        return redirect('/login');
+    }
+
     public function create()
     {
         return view('session.login-session');
@@ -32,9 +37,8 @@ class SessionsController extends Controller
     
     public function destroy()
     {
-
-        Auth::logout();
-
-        return redirect('/login');
+        Auth::logout(); // Logout the user
+    
+        return redirect()->route('login'); // Redirect to login page
     }
 }

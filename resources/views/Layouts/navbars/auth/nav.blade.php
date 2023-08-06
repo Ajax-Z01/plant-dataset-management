@@ -63,7 +63,7 @@
                     </a>
                     <ul class="dropdown-menu overflow-auto mt-0" aria-labelledby="dropdown03link">
                         <li><a class="text-lg dropdown-item" style="color: #285430" href="{{ url('profile') }}">Profile</a></li>
-                        <li><a class="text-lg dropdown-item" style="color: #285430" href="{{ url('login') }}">Sign Out</a></li>
+                        <li><a class="text-lg dropdown-item" style="color: #285430" href="{{ route('logout') }}">Sign Out</a></li>
                     </ul>
                 </li>
             </ul>

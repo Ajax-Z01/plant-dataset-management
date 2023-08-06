@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1DDw-aBrSpnfOMiF2yLUja40GjQCRJFgf
 """
 
-path = r"C:/Nabell/STTN/Tugas Akhir/laravel-dataset/public/assets/Dataset.Resize.Pad.4"
+path = r"C:/Users/ACER/Downloads/repo github/plant-dataset-management/public/assets/Dataset.Resize.Pad.4"
 # r menandakan karena diambil dari file
 
 import tensorflow as tf
@@ -15,9 +15,12 @@ import numpy as np
 import pickle
 import os
 import matplotlib.pyplot as plt
+import argparse
 
-tf.config.list_physical_devices('GPU')
-
+# Create an argument parser
+parser = argparse.ArgumentParser()
+parser.add_argument('--epochs', type=int, required=True)  # Add the --epoch argument
+args = parser.parse_args()
 
 SEED = 99
 
@@ -101,7 +104,7 @@ model.compile(optimizer='adam', loss=tf.keras.losses.categorical_crossentropy, m
 
 callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', start_from_epoch=0)
 
-history = model.fit(train_ds, epochs=2, validation_data=val_ds, callbacks=[callback])
+history = model.fit(train_ds, epochs = args.epochs, validation_data=val_ds, callbacks=[callback])
 
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
