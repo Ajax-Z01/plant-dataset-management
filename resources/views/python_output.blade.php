@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Python Script Output') }}</div>
 
                 <div class="card-body">
-                    <pre>{{ $output }}</pre>
+                    <img src="{{ asset('assets/myplot.png') }}" alt="My Plot"><pre>{{ $output }}</pre>
                 </div>
             </div>
         </div>
