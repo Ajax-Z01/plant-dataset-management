@@ -26,23 +26,12 @@ use App\Http\Controllers\NewProjectFormController;
 |
 */
 
-Route::group(['middleware' => 'auth'], function () {
-
+Route::middleware(['IsActive'])->group(function( ) {
 	Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
-
-	Route::get('user-management', function () {
-		return view('laravel-examples/user-management');
-	})->name('user-management');
-
-	Route::get('/logout', [SessionsController::class, 'destroy']);
 
 	Route::get('/profile', [InfoUserController::class, 'create'])->name('create.profile');
 	Route::post('/profile', [InfoUserController::class, 'store']);
 	Route::post('/profile', [InfoUserController::class, 'update'])->name('edit.profile');
-
-	Route::get('/login', function () {
-		return view('dashboard');
-	})->name('sign-up');
 
 	Route::get('/create-project', [NewProjectFormController::class, 'create'])->name('create.form');
 	Route::post('/create-project', [NewProjectFormController::class, 'store'])->name('create.store');
@@ -61,13 +50,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/execute-python', [ResultProjectController::class, 'executePythonScript'])->name('execute.python');
 });
 
+Route::get('/', [SessionsController::class, 'index'])->name('home');
 Route::get('/auth/redirect', [authController::class, 'redirect'])->name('google.redirect');
 Route::get('/auth/callback', [authController::class, 'callback'])->name('google.callback');
 Route::get('/register', [RegisterController::class, 'create'])->name('create.register');
 Route::post('/register', [RegisterController::class, 'store']);
-Route::get('/login', [SessionsController::class, 'create']);
+Route::get('/login', [SessionsController::class, 'create'])->name('login');
+Route::post('/login', [authController::class, 'loginPost'])->name('login.post');
+Route::get('/logout', [SessionsController::class, 'destroy'])->name('logout');
 Route::post('/session', [SessionsController::class, 'store']);
-
-Route::get('/login', function () {
-	return view('session/login-session');
-})->name('login');
