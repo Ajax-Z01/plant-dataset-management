@@ -23,16 +23,16 @@ class ResultProjectController extends Controller
 
         switch ($selectedArchitecture) {
             case 'inceptionv3':
-                $scriptPath = 'C:\repo github\plant-dataset-management\public\python\test-plot.py';
+                $scriptPath = 'C:\Nabell\STTN\Tugas Akhir\laravel-dataset\public\python\inception.py';
                 break;
             case 'alexnet':
-                $scriptPath = 'C:\repo github\plant-dataset-management\public\python\alexnet-2.py';
+                $scriptPath = 'C:\Nabell\STTN\Tugas Akhir\laravel-dataset\public\python\alexnet.py';
                 break;
             case 'densenet121':
-                $scriptPath = 'C:\repo github\plant-dataset-management\public\python\densenet121-2.py';
+                $scriptPath = 'C:\Nabell\STTN\Tugas Akhir\laravel-dataset\public\python\densenet121.py';
                 break;
             case 'vgg16':
-                $scriptPath = 'C:\repo github\plant-dataset-management\public\python\vgg16-2.py';
+                $scriptPath = 'C:\Nabell\STTN\Tugas Akhir\laravel-dataset\public\python\vgg16.py';
                 break;
             default:
                 return response("Unknown architecture.", 400);

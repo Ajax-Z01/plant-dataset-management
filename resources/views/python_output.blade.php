@@ -7,9 +7,12 @@
             <div class="card">
                 <div class="card-header">{{ __('Python Script Output') }}</div>
 
-                <div class="card-body">
-                    <img src="{{ asset('assets/myplot.png') }}" alt="My Plot"><pre>{{ $output }}</pre>
-                </div>
+            </div>
+            <div class="card-body">
+                <img src="{{ asset('assets/plot1.png') }}" alt="My Plot"><pre>{{ $output }}</pre>
+            </div>
+            <div class="card-body">
+                <img src="{{ asset('assets/plot2.png') }}" alt="My Plot"><pre>{{ $output }}</pre>
             </div>
         </div>
     </div>
