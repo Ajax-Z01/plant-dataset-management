@@ -70,6 +70,7 @@ callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, star
 
 history = model.fit(train_ds, epochs = args.epochs, validation_data=val_ds, callbacks=[callback])
 
+# summarize history for accuracy
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
 plt.title('Accuracy')

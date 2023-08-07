@@ -102,10 +102,11 @@ model.summary()
 
 model.compile(optimizer='adam', loss=tf.keras.losses.categorical_crossentropy, metrics=['accuracy'])
 
-callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', start_from_epoch=0)
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, start_from_epoch=0)
 
 history = model.fit(train_ds, epochs = args.epochs, validation_data=val_ds, callbacks=[callback])
 
+# summarize history for accuracy
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
 plt.title('Accuracy')

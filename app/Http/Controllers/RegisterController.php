@@ -26,6 +26,6 @@ class RegisterController extends Controller
         $user = User::create($attributes);
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect()->route('login')->withSuccess('Your account has been successfully registered. Please wait until your account is approved by the administrator.');
     }
 }

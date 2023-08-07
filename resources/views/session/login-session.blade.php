@@ -10,6 +10,30 @@
             <div class="col-xl-4 col-lg-4 col-md-5 d-flex flex-column mx-auto">
               <div class="card card-plain mt-7">
                 <div class="card-header pb-0 text-left bg-transparent">
+                  @if(session('status'))
+                    <div class="alert alert-success text-lime-500">
+                      <i class="fas fa-check-circle"></i> {{ session('status') }}
+                    </div>
+                @endif
+                @if (Session::has('success'))
+                  <div class="alert alert-success text-lime-500">
+                    <i class="fas fa-check-circle"></i> {{ Session::get('success') }}
+                  </div>
+                @endif
+                @if (Session::has('unsuccess'))
+                  <div class="alert alert-unsuccess text-red-500">
+                    <i class="fas fa-times-circle"></i> {{ Session::get('unsuccess') }}
+                  </div>
+                @endif
+                @if ($errors->any())
+                  <div class="alert alert-error text-red-500">
+                    <ul class="list-disc pl-5">
+                      @foreach ($errors->all() as $error)
+                        <li>{{ htmlentities($error) }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                @endif
                   <h3 class="font-weight-bolder mb-4 text-success text-gradient">Welcome back</h3>
                   <p class="mb-0">Manage your dataset and find the right model using machine learning</p>
                 </div>

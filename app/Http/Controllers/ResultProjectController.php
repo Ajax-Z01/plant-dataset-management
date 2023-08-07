@@ -41,8 +41,9 @@ class ResultProjectController extends Controller
         $data = array(
             'epochs' => $epochs
         );
-    
-        $payload = json_encode($data);
+        
+        // untuk mengubah data dalam bentuk array menjadi format JSON
+        $payload = json_encode($data); 
 
         $pythonPath = 'C:\Program Files\Python311\python.exe'; // Path to your Python interpreter
         $command = "\"{$pythonPath}\" \"{$scriptPath}\" --epochs={$epochs}"; // Added the missing closing double quote
