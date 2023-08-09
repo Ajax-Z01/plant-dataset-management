@@ -1,7 +1,7 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-  <div class="container-xxl p-0">
+  <div class="container-xxl">
     <div class="row p-4 ms-3">
       <div class="col-md-6" data-aos="fade-right" data-aos-duration="2000">
         <div class="text-label" style="color: #263A29">
@@ -69,7 +69,7 @@
       <div class="border border-2 border-bottom m-auto" style="width: 100%; opacity: 0.7"></div>
     </div> --}}
     
-    <div class="card py-6 mt-0" id="projects" style="background-color: #285430; border-radius: 0">
+    <div class="card py-6 mt-0 mb-3" id="projects" style="background-color: #285430; border-radius: 0">
       <div class="col-12" data-aos="zoom-in">
         <div class="card py-5 mx-5">
           <div class="card-header lh-lg py-0">

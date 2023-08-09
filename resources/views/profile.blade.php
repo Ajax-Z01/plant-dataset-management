@@ -46,7 +46,7 @@
               <ul class="list-group m-3">
                 <li class="list-group-item border-0 ps-0 pt-0 text-lg"><strong class="text-dark">
                   <span><i class="fa-solid fa-user pe-2" style="color: #344767 ;"></i></span>
-                  Full Name:</strong> &nbsp; {{ auth()->user()->name }}
+                  Name:</strong> &nbsp; {{ auth()->user()->name }}
                 </li>
                 {{-- <li class="list-group-item border-0 ps-0 text-lg"><strong class="text-dark">
                   <span><i class="fa-solid fa-mobile-screen-button pe-2" style="color: #344767 ;"></i></span>
@@ -60,7 +60,7 @@
                   <span><i class="fa-solid fa-location-dot pe-2" style="color: #344767 ;"></i></span>
                   Location:</strong> &nbsp; {{ auth()->user()->location }}
                 </li> --}}
-                <li class="list-group-item border-0 ps-0 pb-0">
+                {{-- <li class="list-group-item border-0 ps-0 pb-0">
                   <strong class="text-dark text-lg">Social:</strong> &nbsp;
                   <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
                     <i class="fab fa-facebook fa-xl"></i>
@@ -71,7 +71,7 @@
                   <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
                     <i class="fab fa-instagram fa-xl"></i>
                   </a>
-                </li>
+                </li> --}}
               </ul>
             </div>
           </div>
