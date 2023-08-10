@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1ATjQDcIUS3c2Vg6mXpO9qqH8k48ftJwY
 """
 
-path = r"C:/Users/ACER/Downloads/repo github/plant-dataset-management/public/assets/Dataset.Resize.Pad.4"
+path = r"G:/TA 2023/plant-dataset-management/public/assets/Dataset.Resize.Pad.4"
 # r menandakan karena diambil dari file
 
 import tensorflow as tf
@@ -15,6 +15,7 @@ import numpy as np
 import pickle
 import matplotlib.pyplot as plt
 import argparse
+import os
 
 # Create an argument parser
 parser = argparse.ArgumentParser()
@@ -66,9 +67,9 @@ model= tf.keras.applications.densenet.DenseNet121(include_top=True, weights=None
 
 model.compile(optimizer='adam', loss=tf.keras.losses.categorical_crossentropy, metrics=['accuracy'])
 
-callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, start_from_epoch=0)
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
-history = model.fit(train_ds, epochs = args.epochs, validation_data=val_ds, callbacks=[callback])
+history = model.fit(train_ds, epochs = 10, validation_data=val_ds, callbacks=[callback])
 
 # summarize history for accuracy
 plt.plot(history.history['accuracy'])
@@ -81,7 +82,7 @@ plt.savefig('plot.png')
 plt.show()
 plt.draw()
 
-# plt.savefig(os.path.join(os.path.dirname(__file__), "C:/Users/ACER/Downloads/python/myplot.png"))
+plt.savefig(os.path.join(os.path.dirname(__file__), "C:/Users/ACER/Downloads/python/myplot.png"))
 
 # summarize history for loss
 plt.plot(history.history['loss'])
@@ -93,7 +94,6 @@ plt.legend(['train', 'validation'], loc='upper left')
 plt.savefig('plot2.png')
 plt.show()
 plt.draw()
-
 
 with open("densenet121.pkl", "wb") as f:
   pickle.dump(history, f)

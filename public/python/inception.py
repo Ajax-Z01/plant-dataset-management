@@ -7,19 +7,19 @@ Original file is located at
     https://colab.research.google.com/drive/1hpzzQ11hRTWGFfr598Fifg45wiqvTCfB
 """
 
-path = r"C:/Users/ACER/Downloads/repo github/plant-dataset-management/public/assets/Dataset.Resize.Pad.4"
+path = r"G:/TA 2023/plant-dataset-management/public/assets/Dataset.Resize.Pad.4"
 # r menandakan karena diambil dari file
 
 import tensorflow as tf
 import numpy as np
 import pickle
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import argparse
 
 # Create an argument parser
-parser = argparse.ArgumentParser()
-parser.add_argument('--epochs', type=int, required=True)  # Add the --epoch argument
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument('--epochs', type=int, required=True)  # Add the --epoch argument
+# args = parser.parse_args()
 
 SEED = 99
 
@@ -65,33 +65,33 @@ model= tf.keras.applications.inception_v3.InceptionV3(include_top=True, weights=
 
 model.compile(optimizer='adam', loss=tf.keras.losses.categorical_crossentropy, metrics=['accuracy'])
 
-callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, start_from_epoch=0)
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
-history = model.fit(train_ds, epochs = args.epochs, validation_data=val_ds, callbacks=[callback])
+history = model.fit(train_ds, epochs = 10, validation_data=val_ds, callbacks=[callback])
 
 # summarize history for accuracy
-plt.plot(history.history['accuracy'])
-plt.plot(history.history['val_accuracy'])
-plt.title('Accuracy')
-plt.ylabel('accuracy')
-plt.xlabel('epoch')
-plt.legend(['train', 'validation'], loc='upper left')
-plt.savefig('plot.png')
-plt.show()
-plt.draw()
+# plt.plot(history.history['accuracy'])
+# plt.plot(history.history['val_accuracy'])
+# plt.title('Accuracy')
+# plt.ylabel('accuracy')
+# plt.xlabel('epoch')
+# plt.legend(['train', 'validation'], loc='upper left')
+# plt.savefig('plot.png')
+# plt.show()
+# plt.draw()
 
 # plt.savefig(os.path.join(os.path.dirname(__file__), "C:/Users/ACER/Downloads/python/myplot.png"))
 
 # summarize history for loss
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
-plt.title('Loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'validation'], loc='upper left')
-plt.savefig('plot2.png')
-plt.show()
-plt.draw()
+# plt.plot(history.history['loss'])
+# plt.plot(history.history['val_loss'])
+# plt.title('Loss')
+# plt.ylabel('loss')
+# plt.xlabel('epoch')
+# plt.legend(['train', 'validation'], loc='upper left')
+# plt.savefig('plot2.png')
+# plt.show()
+# plt.draw()
 
 
 with open("inceptionv3.pkl", "wb") as f:
