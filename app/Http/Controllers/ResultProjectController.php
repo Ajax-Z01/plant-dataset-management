@@ -51,18 +51,4 @@ class ResultProjectController extends Controller
 
         return view('python_output', ['output' => $output]);
     }
-
-    function saveResult(Request $request) 
-    {
-        $url = $request->input('url'); // Ambil URL dari input form atau request Anda
-
-        $pdf = Browsershot::url($url)
-            ->format('A4')
-            ->pdf();
-
-        $filename = 'website.pdf';
-        $pdf->save(public_path($filename));
-
-        return response()->json(['message' => 'Website saved as PDF', 'pdf_url' => asset($filename)]);
-    }
 }
