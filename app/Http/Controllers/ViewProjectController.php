@@ -96,18 +96,6 @@ class ViewProjectController extends Controller
         return redirect()->back()->with('success', 'Dataset updated successfully!');
     }
 
-    public function deleteDataset($id)
-    {
-        // Get the dataset by ID
-        $dataset = Dataset::findOrFail($id);
-
-        // Delete the dataset
-        $dataset->delete();
-
-        // Redirect back or return a response indicating successful dataset deletion
-        return redirect()->back()->with('success', 'Dataset deleted successfully!');
-    }
-
     public function addCollaborator(Request $request, $id)
     {
         // Validasi request jika diperlukan

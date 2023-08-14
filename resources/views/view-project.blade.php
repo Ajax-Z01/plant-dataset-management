@@ -71,7 +71,6 @@
                                     <h5 class="card-title text-sm">{{ $file->label }}</h5>
                                     <div class="button">
                                         <button class="btn btn-danger btn-sm px-3" style="background-color: #285430" onclick="viewFile('{{ $file->url }}, {{ $datasetIds[$loop->index] }}')">View</button>
-                                        <a href="{{ route('delete.dataset', ['id' => $datasetIds[$loop->index]]) }}" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this data?')) document.getElementById('delete-form-{{ htmlentities($datasetIds[$loop->index]) }}').submit()";><button class="btn btn-danger btn-sm px-3" style="background-color: #850000" onclick="deleteFile()">Delete</button></a>
                                         {{-- <form id="delete-form-{{ htmlentities($datasetIds[$loop->index]) }}" action="{{ route('delete.dataset', ['id' => $datasetIds[$loop->index]]) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('DELETE')

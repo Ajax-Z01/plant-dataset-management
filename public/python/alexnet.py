@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1DDw-aBrSpnfOMiF2yLUja40GjQCRJFgf
 """
 
-path = r"C:/Users/ACER/Downloads/repo github/plant-dataset-management/public/assets/Dataset.Resize.Pad.4"
+path = r"G:/TA 2023/plant-dataset-management/public/assets/Dataset.Resize.Pad.4"
 # r menandakan karena diambil dari file
 
 import tensorflow as tf
@@ -102,7 +102,7 @@ model.summary()
 
 model.compile(optimizer='adam', loss=tf.keras.losses.categorical_crossentropy, metrics=['accuracy'])
 
-callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, start_from_epoch=0)
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
 history = model.fit(train_ds, epochs = args.epochs, validation_data=val_ds, callbacks=[callback])
 
@@ -116,8 +116,6 @@ plt.legend(['train', 'validation'], loc='upper left')
 plt.savefig(os.path.join(os.path.dirname(__file__), "../assets/plot1.png"))
 plt.draw()
 
-# plt.savefig(os.path.join(os.path.dirname(__file__), "C:/Users/ACER/Downloads/python/myplot.png"))
-
 # summarize history for loss
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
@@ -127,8 +125,6 @@ plt.xlabel('epoch')
 plt.legend(['train', 'validation'], loc='upper left')
 plt.savefig(os.path.join(os.path.dirname(__file__), "../assets/plot2.png"))
 plt.draw()
-
-# plt.savefig(os.path.join(os.path.dirname(__file__), r"C:\Users\ACER\Downloads\python\myplot2.png"))
 
 with open("alexnet.pkl", "wb") as f:
   pickle.dump(history, f)

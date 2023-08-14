@@ -30,22 +30,17 @@ Route::middleware(['IsActive'])->group(function( ) {
 	Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
 
 	Route::get('/profile', [InfoUserController::class, 'create'])->name('create.profile');
-	Route::post('/profile', [InfoUserController::class, 'store']);
-	Route::post('/profile', [InfoUserController::class, 'update'])->name('edit.profile');
 
 	Route::get('/create-project', [NewProjectFormController::class, 'create'])->name('create.form');
 	Route::post('/create-project', [NewProjectFormController::class, 'store'])->name('create.store');
 
 	Route::get('/view-project/{id}', [ViewProjectController::class, 'index'])->name('view.project');
 	Route::match(['get', 'put'], '/view-project/update-label{id}', [ViewProjectController::class, 'updateDataset'])->name('update.dataset');
-	Route::delete('/view-project/delete-label/{id}', [ViewProjectController::class, 'deleteDataset'])->whereNumber('id')->name('delete.dataset');
+	// Route::delete('/view-project/delete-label/{id}', [ViewProjectController::class, 'deleteDataset'])->whereNumber('id')->name('delete.dataset');
 
 	Route::post('/add-collaborator/{id}', [ViewProjectController::class, 'addCollaborator'])->whereNumber('id')->name('add.collaborator');
 
 	Route::get('/result-project/{id}', [ResultProjectController::class, 'index'])->name('result-project');
-
-	Route::get('/show-post', [PostController::class, 'index']);
-	Route::post('/create-post', [PostController::class, 'store']);
 
 	Route::post('/execute-python', [ResultProjectController::class, 'executePythonScript'])->name('execute.python');
 });

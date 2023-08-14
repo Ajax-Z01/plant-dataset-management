@@ -23,16 +23,16 @@ class ResultProjectController extends Controller
 
         switch ($selectedArchitecture) {
             case 'inceptionv3':
-                $scriptPath = 'C:\Users\ACER\Downloads\repo github\plant-dataset-management\public\python\inception.py';
+                $scriptPath = 'G:\TA 2023\plant-dataset-management\public\python\inception.py';
                 break;
             case 'alexnet':
-                $scriptPath = 'C:\Users\ACER\Downloads\repo github\plant-dataset-management\public\python\alexnet.py';
+                $scriptPath = 'G:\TA 2023\plant-dataset-management\public\python\alexnet.py';
                 break;
             case 'densenet121':
-                $scriptPath = 'C:\Users\ACER\Downloads\repo github\plant-dataset-management\public\python\densenet121.py';
+                $scriptPath = 'G:\TA 2023\plant-dataset-management\public\python\densenet121.py';
                 break;
             case 'vgg16':
-                $scriptPath = 'C:\Users\ACER\Downloads\repo github\plant-dataset-management\public\python\vgg16.py';
+                $scriptPath = 'G:\TA 2023\plant-dataset-management\public\python\vgg16.py';
                 break;
             default:
                 return response("Unknown architecture.", 400);
@@ -45,7 +45,7 @@ class ResultProjectController extends Controller
         // untuk mengubah data dalam bentuk array menjadi format JSON
         $payload = json_encode($data); 
 
-        $pythonPath = 'C:\Program Files\Python311\python.exe'; // Path to your Python interpreter
+        $pythonPath = 'C:/Users/FastNeutron/.conda/envs/tf_gpu/python.exe'; // Path to your Python interpreter
         $command = "\"{$pythonPath}\" \"{$scriptPath}\" --epochs={$epochs}"; // Added the missing closing double quote
         $output = shell_exec($command);
 
